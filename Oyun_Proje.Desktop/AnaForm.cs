@@ -8,14 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 
 namespace Oyun_Proje.Desktop
 {
     public partial class AnaForm : Form
     {
+        Bloks blok;
+        Karakter karakter;
         Timer zamanlayici;
-
+        Oyun oyun;
         Sabit_Tuzak sbtTuzak;
         bool basladiMi;
         public AnaForm()
@@ -23,7 +26,12 @@ namespace Oyun_Proje.Desktop
             DoubleBuffered = true;
             InitializeComponent();
 
-            
+            karakter = new Karakter();
+            zamanlayici = new Timer();
+            oyun = new Oyun();
+            blok = new Bloks();
+            sbtTuzak = new Sabit_Tuzak();
+            basladiMi = false;
 
             KeyDown += AnaForm_KeyDown;
             Paint += AnaForm_Paint;
@@ -41,20 +49,20 @@ namespace Oyun_Proje.Desktop
             if (basladiMi == true)
             {
                 sbtTuzak.SabitTuzakCiz(e.Graphics);
-                Bloks.BlokEkle(e.Graphics);
-                Karakter.KarakterCiz(e.Graphics);
+               // blok.BlokEkle(e.Graphics);
+                karakter.KarakterCiz(e.Graphics);
             }
         }
 
         private void AnaForm_KeyDown(object sender, KeyEventArgs e)
         {
-            Karakter.HareketEt(e);
+            karakter.HareketEt(e);
             if(e.KeyCode == Keys.P)
             {
 
             }
             Invalidate();
-
+            sbtTuzak.CanAzalt(karakter);
         }
 
         private void btnStart_Click(object sender, EventArgs e)

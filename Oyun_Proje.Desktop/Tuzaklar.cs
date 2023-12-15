@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Oyun_Proje.Desktop
 {
-    internal class Tuzaklar:Cisim
+    internal class Tuzaklar : Cisim
     {
         protected Tuzaklar[] tuzaklar = new Tuzaklar[10];
         public Image[] resimler = new Image[3];
@@ -16,18 +16,17 @@ namespace Oyun_Proje.Desktop
 
         public Random rnd = new Random();
 
-        public void CanAzalt(Karakter karakter, ref Timer zamanlayici)
+        public void CanAzalt(Karakter karakter)
         {
             for (int i = 0; i < 10; i++)
             {
-                if (tuzaklar[i].X == karakter.X)
+                if (tuzaklar[i].X == karakter.X && tuzaklar[i].Y == karakter.Y)
                 {
-                    if(can > 0)
+                    if (can > 0)
                         can -= 1;
                     break;
                 }
             }
-            Oyun.OyunuBitir(can,ref zamanlayici);
         }
         public void Hareket()
         {
@@ -35,15 +34,15 @@ namespace Oyun_Proje.Desktop
         }
     }
 
-    internal class Sabit_Tuzak:Tuzaklar
+    internal class Sabit_Tuzak : Tuzaklar
     {
         private int sayac;
         private int rastgeleSayi;
         public Sabit_Tuzak()
         {
-            for (int i = 0; i < 3; i++) 
+            for (int i = 0; i < 3; i++)
             {
-                if(i == 0) 
+                if (i == 0)
                     resimler[i] = Image.FromFile("sbtTuzak1.jpeg");
                 if (i == 1)
                     resimler[i] = Image.FromFile("sbtTuzak2.jpeg");
@@ -59,7 +58,7 @@ namespace Oyun_Proje.Desktop
                 tuzaklar[sayac].X = 0;
                 tuzaklar[sayac].Y = 0;
 
-                for (; ;)
+                for (; ; )
                 {
                     rastgeleSayi = rnd.Next(80, 801);
                     if (rastgeleSayi % 80 == 0)

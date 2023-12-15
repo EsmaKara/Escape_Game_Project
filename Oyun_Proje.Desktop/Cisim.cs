@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Oyun_Proje.Desktop
 {
-    internal class Cisim:Oyun
+    internal class Cisim
     {
-        private static int x;
-        private static int y;
-        private static int boyut;
-        protected static Image resim;
-
+        private int x;
+        private int y;
+        private int boyut;
+        protected Image resim;
+        
         public Cisim() { boyut = 80; }
-        public static int X
+        public int X
         {
             get => x;
             set
@@ -24,7 +24,7 @@ namespace Oyun_Proje.Desktop
                     x = value;
             }
         }
-        public static int Y
+        public int Y
         {
             get => y;
             set
@@ -33,6 +33,6 @@ namespace Oyun_Proje.Desktop
                     y = value;
             }
         }
-        public static int Boyut { get => boyut; }
+        public int Boyut { get => boyut; }
     }
 }

@@ -16,7 +16,7 @@ namespace Oyun_Proje.Desktop
             Y = 160;
         }
 
-        public static void BlokEkle(Graphics blokCiz)
+        public void BlokEkle(Graphics blokCiz)
         {
             for(int i = 0; i < 3; i++)
             {

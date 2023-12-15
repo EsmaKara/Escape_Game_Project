@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Oyun_Proje.Desktop
 {
-    internal class Karakter:Cisim
+    internal class Karakter : Cisim
     {
         public Karakter()
         {
@@ -13,37 +13,37 @@ namespace Oyun_Proje.Desktop
             Y = 240;
         }
 
-        public static void KarakterCiz (Graphics karakterCiz)
+        public void KarakterCiz(Graphics karakterCiz)
         {
             karakterCiz.DrawImage(resim, X, Y, Boyut, Boyut);
         }
 
-        public static void HareketEt(KeyEventArgs key)
+        public void HareketEt(KeyEventArgs key)
         {
             switch (key.KeyCode)
             {
-                case Keys.Left:     SolaGit(); break;
-                case Keys.Right:    SagaGit(); break;
-                case Keys.Up:       YukariGit(); break;
-                case Keys.Down:     AsagiGit(); break;
+                case Keys.Left: SolaGit(); break;
+                case Keys.Right: SagaGit(); break;
+                case Keys.Up: YukariGit(); break;
+                case Keys.Down: AsagiGit(); break;
             }
         }
-        public static void SolaGit()   {   X -= Boyut;    }
-        public static void SagaGit()   
+        public void SolaGit() { X -= Boyut; }
+        public void SagaGit()
         {
             if (X != 880)
-                X += Boyut;    
+                X += Boyut;
         }
-        public static void AsagiGit() 
+        public void AsagiGit()
         {
-            if(Y != 240 + Boyut) 
-                Y += Boyut; 
+            if (Y != 240 + Boyut)
+                Y += Boyut;
         }
-        public static void YukariGit() 
+        public void YukariGit()
         {
-            if(Y != 240 - Boyut)
-                Y -= Boyut;    
+            if (Y != 240 - Boyut)
+                Y -= Boyut;
         }
-        
+
     }
 }
