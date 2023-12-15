@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Oyun_Proje.Desktop
 {
-    internal class Bloks:GenelSınıf
+    internal class Bloks:Cisim
     {
         public Bloks() 
         {
             resim = Image.FromFile("Bloks.jpeg");
             X = 80;
-            Y = 120;
+            Y = 160;
         }
 
-        public void BlokEkle(Graphics blokCiz)
+        public static void BlokEkle(Graphics blokCiz)
         {
             for(int i = 0; i < 3; i++)
             {
@@ -28,6 +28,7 @@ namespace Oyun_Proje.Desktop
                 Y += Boyut;
                 X -= Boyut*10;
             }
+            Y -= Boyut*3;
         }
     }
 }
