@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Oyun_Proje.Desktop
 {
@@ -25,10 +26,13 @@ namespace Oyun_Proje.Desktop
                     if (karakter.Can > 0)
                     {
                         karakter.Can -= 1;
-                        
                     }
                     break;
                 }
+            }
+            if (karakter.Can == 0)
+            {
+                MessageBox.Show("YOU DIED IN PAIN..");
             }
         }
         public void Hareket()

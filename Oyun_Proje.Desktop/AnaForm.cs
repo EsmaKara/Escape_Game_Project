@@ -77,7 +77,10 @@ namespace Oyun_Proje.Desktop
             else
             {
                 zamanlayici.Stop();
-                MessageBox.Show("ÖLDÜN...");
+                this.Controls.Clear();
+                karakter = new Karakter();
+                Invalidate();
+                sbtTuzak.SabitTuzakOlustur();
             }
         }
 

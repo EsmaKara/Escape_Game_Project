@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,14 +12,14 @@ namespace Oyun_Proje.Desktop
     {
         public Bloks() 
         {
-            resim = Image.FromFile("Bloks.jpeg");
             X = 80;
             Y = 160;
         }
 
         public void BlokEkle(Graphics blokCiz)
         {
-            for(int i = 0; i < 3; i++)
+            resim = Image.FromFile("Bloks.jpeg");
+            for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 10; j++)
                 {
@@ -29,6 +30,10 @@ namespace Oyun_Proje.Desktop
                 X -= Boyut*10;
             }
             Y -= Boyut*3;
+
+            resim = Image.FromFile("level1.jpeg");
+            blokCiz.DrawImage(resim, Boyut * 11, 160 + Boyut, Boyut, Boyut);
+
         }
     }
 }
