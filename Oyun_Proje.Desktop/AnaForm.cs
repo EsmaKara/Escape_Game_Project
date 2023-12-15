@@ -48,9 +48,19 @@ namespace Oyun_Proje.Desktop
 
             if (basladiMi == true)
             {
-                sbtTuzak.SabitTuzakCiz(e.Graphics);
-               // blok.BlokEkle(e.Graphics);
+                sbtTuzak.SabitTuzakCiz(e.Graphics, karakter);
+                blok.BlokEkle(e.Graphics);
                 karakter.KarakterCiz(e.Graphics);
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                if (sbtTuzak.tuzaklar[i] != null)
+                    if (karakter.X == sbtTuzak.tuzaklar[i].X && karakter.Y == sbtTuzak.tuzaklar[i].Y)
+                    {
+                        blok.BlokEkle(e.Graphics);
+                        sbtTuzak.SabitTuzakGoster(e.Graphics, karakter);
+                        karakter.KarakterCiz(e.Graphics);
+                    }
             }
         }
 
@@ -62,7 +72,13 @@ namespace Oyun_Proje.Desktop
 
             }
             Invalidate();
-            sbtTuzak.CanAzalt(karakter);
+            if(karakter.Can != 0)
+                sbtTuzak.CanAzalt(karakter);
+            else
+            {
+                zamanlayici.Stop();
+                MessageBox.Show("ÖLDÜN...");
+            }
         }
 
         private void btnStart_Click(object sender, EventArgs e)

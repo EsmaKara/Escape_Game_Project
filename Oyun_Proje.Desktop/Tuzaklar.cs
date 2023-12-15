@@ -10,7 +10,7 @@ namespace Oyun_Proje.Desktop
 {
     internal class Tuzaklar : Cisim
     {
-        protected Tuzaklar[] tuzaklar = new Tuzaklar[10];
+        public Tuzaklar[] tuzaklar = new Tuzaklar[10];
         public Image[] resimler = new Image[3];
         public int can = 3;
 
@@ -22,8 +22,11 @@ namespace Oyun_Proje.Desktop
             {
                 if (tuzaklar[i].X == karakter.X && tuzaklar[i].Y == karakter.Y)
                 {
-                    if (can > 0)
-                        can -= 1;
+                    if (karakter.Can > 0)
+                    {
+                        karakter.Can -= 1;
+                        
+                    }
                     break;
                 }
             }
@@ -79,13 +82,29 @@ namespace Oyun_Proje.Desktop
             }
         }
 
-        public void SabitTuzakCiz(Graphics sbtTuzak)
+        public void SabitTuzakCiz(Graphics sbtTuzak, Karakter karakter)
         {
             for (int i = 0; i < 10; i++)
             {
                 rastgeleSayi = rnd.Next(0, 3);
                 if (tuzaklar[i] != null)
                     sbtTuzak.DrawImage(resimler[rastgeleSayi], tuzaklar[i].X, tuzaklar[i].Y, Boyut, Boyut);
+            }
+        }
+
+        public void SabitTuzakGoster(Graphics sbtTuzak, Karakter karakter)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                if (karakter.X >= tuzaklar[i].X)
+                {
+                    if (karakter.Y == tuzaklar[i].Y)
+                    {
+                        rastgeleSayi = rnd.Next(0, 3);
+                        if (tuzaklar[i] != null)
+                            sbtTuzak.DrawImage(resimler[rastgeleSayi], tuzaklar[i].X, tuzaklar[i].Y, Boyut, Boyut);
+                    }
+                }
             }
         }
     }

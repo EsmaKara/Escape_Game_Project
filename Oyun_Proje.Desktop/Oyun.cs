@@ -14,6 +14,7 @@ namespace Oyun_Proje.Desktop
     {
         public Oyun()
         {
+
         }
         
         public static void EkraniTemizle()

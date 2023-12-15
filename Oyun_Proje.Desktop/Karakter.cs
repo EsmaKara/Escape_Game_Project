@@ -6,11 +6,16 @@ namespace Oyun_Proje.Desktop
 {
     internal class Karakter : Cisim
     {
+        private int can;
+
+        public int Can { get => can; set => can = value; }
+
         public Karakter()
         {
             resim = Image.FromFile("Karakter.ico");
             X = 0;
             Y = 240;
+            Can = 3;
         }
 
         public void KarakterCiz(Graphics karakterCiz)
