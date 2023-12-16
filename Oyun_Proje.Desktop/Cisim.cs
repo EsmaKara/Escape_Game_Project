@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Drawing;
 
 namespace Oyun_Proje.Desktop
@@ -9,7 +10,11 @@ namespace Oyun_Proje.Desktop
         private int y;
         private int boyut;
         protected Image resim;
-        
+        public Image[] resimler;
+        protected int rastgeleSayi;
+        protected int sayac;
+        public Random rnd;
+
         public Cisim() { boyut = 80; }
         public int X
         {

@@ -8,19 +8,14 @@ namespace Oyun_Proje.Desktop
     internal class Tuzaklar : Cisim
     {
         public Tuzaklar[] tuzaklar = new Tuzaklar[10];
-        public Image[] resimler;
         public int can = 3;
-        protected int sayac;
-        protected int rastgeleSayi;
         public Timer zamanlayici;
 
         public Tuzaklar()
         {
             zamanlayici = new Timer();
+            rnd = new Random();
         }
-
-
-        public Random rnd = new Random();
 
         public void CanAzalt(Karakter karakter)
         {
