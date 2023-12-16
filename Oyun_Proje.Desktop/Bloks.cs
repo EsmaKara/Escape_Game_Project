@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
+﻿
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Remoting.Activation;
 
 namespace Oyun_Proje.Desktop
 {
@@ -16,7 +12,7 @@ namespace Oyun_Proje.Desktop
             Y = 160;
         }
 
-        public void BlokEkle(Graphics blokCiz)
+        public void BlokEkle(Graphics blokCiz, int level)
         {
             resim = Image.FromFile("Bloks.jpeg");
             for (int i = 0; i < 3; i++)
@@ -31,8 +27,21 @@ namespace Oyun_Proje.Desktop
             }
             Y -= Boyut*3;
 
-            resim = Image.FromFile("level1.jpeg");
-            blokCiz.DrawImage(resim, Boyut * 11, 160 + Boyut, Boyut, Boyut);
+            if (level == 1)
+            {
+                resim = Image.FromFile("level1.jpeg");
+                blokCiz.DrawImage(resim, Boyut * 11, 160 + Boyut, Boyut, Boyut);
+            }
+            else if (level == 2)
+            {
+                resim = Image.FromFile("level2.jpeg");
+                blokCiz.DrawImage(resim, Boyut * 11, 160 + Boyut, Boyut, Boyut);
+            }
+            else if(level == 3)
+            {
+                resim = Image.FromFile("level3.jpeg");
+                blokCiz.DrawImage(resim, Boyut * 11, 160 + Boyut, Boyut, Boyut);
+            }
 
         }
     }

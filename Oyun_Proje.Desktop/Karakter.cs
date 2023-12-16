@@ -1,4 +1,4 @@
-﻿using System.Data.SqlTypes;
+﻿
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -18,9 +18,9 @@ namespace Oyun_Proje.Desktop
             Can = 3;
         }
 
-        public void KarakterCiz(Graphics karakterCiz)
+        public void KarakterCiz(Graphics karakterCiz, Karakter karakter)
         {
-            karakterCiz.DrawImage(resim, X, Y, Boyut, Boyut);
+            karakterCiz.DrawImage(resim, karakter.X, karakter.Y, Boyut, Boyut);
         }
 
         public void HareketEt(KeyEventArgs key)
@@ -33,7 +33,11 @@ namespace Oyun_Proje.Desktop
                 case Keys.Down: AsagiGit(); break;
             }
         }
-        public void SolaGit() { X -= Boyut; }
+        public void SolaGit() 
+        { 
+            if (X > 0)
+                X -= Boyut; 
+        }
         public void SagaGit()
         {
             if (X != 880)

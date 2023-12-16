@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlTypes;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
@@ -20,7 +13,10 @@ namespace Oyun_Proje.Desktop
         Timer zamanlayici;
         Oyun oyun;
         Sabit_Tuzak sbtTuzak;
+        Dusen_Tuzak dsnTuzak;
         bool basladiMi;
+        private int level;
+        private int sayi;
         public AnaForm()
         {
             DoubleBuffered = true;
@@ -31,7 +27,11 @@ namespace Oyun_Proje.Desktop
             oyun = new Oyun();
             blok = new Bloks();
             sbtTuzak = new Sabit_Tuzak();
+            dsnTuzak = new Dusen_Tuzak();
             basladiMi = false;
+            zamanlayici.Interval = 1000;
+
+            sayi = 0;
 
             KeyDown += AnaForm_KeyDown;
             Paint += AnaForm_Paint;
@@ -40,47 +40,101 @@ namespace Oyun_Proje.Desktop
 
         private void Zamanlayici_Tick(object sender, EventArgs e)
         {
-            
+            dsnTuzak.Hareket();
+            Invalidate();
+            sayi++;
+            if(sayi % 3 == 0)
+            {
+                dsnTuzak.DusenTuzakOlustur();
+            }
         }
 
         private void AnaForm_Paint(object sender, PaintEventArgs e)
         {
-
-            if (basladiMi == true)
+            if (level == 1)
             {
-                sbtTuzak.SabitTuzakCiz(e.Graphics, karakter);
-                blok.BlokEkle(e.Graphics);
-                karakter.KarakterCiz(e.Graphics);
+                if (basladiMi == true)
+                {
+                    sbtTuzak.SabitTuzakCiz(e.Graphics, karakter);
+                    blok.BlokEkle(e.Graphics, level);
+                    karakter.KarakterCiz(e.Graphics, karakter);
+                }
+                for (int i = 0; i < 10; i++)
+                {
+                    if (sbtTuzak.tuzaklar[i] != null)
+                        if (karakter.X == sbtTuzak.tuzaklar[i].X && karakter.Y == sbtTuzak.tuzaklar[i].Y)
+                        {
+                            blok.BlokEkle(e.Graphics, level);
+                            sbtTuzak.SabitTuzakGoster(e.Graphics, karakter);
+                            karakter.KarakterCiz(e.Graphics, karakter);
+                        }
+                }
             }
-            for (int i = 0; i < 10; i++)
+
+            else if (level == 2)
             {
-                if (sbtTuzak.tuzaklar[i] != null)
-                    if (karakter.X == sbtTuzak.tuzaklar[i].X && karakter.Y == sbtTuzak.tuzaklar[i].Y)
-                    {
-                        blok.BlokEkle(e.Graphics);
-                        sbtTuzak.SabitTuzakGoster(e.Graphics, karakter);
-                        karakter.KarakterCiz(e.Graphics);
-                    }
+                blok.BlokEkle(e.Graphics, level);
+                dsnTuzak.DusenTuzakCiz(e.Graphics, karakter);
+                karakter.KarakterCiz(e.Graphics, karakter);
             }
         }
 
         private void AnaForm_KeyDown(object sender, KeyEventArgs e)
         {
-            karakter.HareketEt(e);
-            if(e.KeyCode == Keys.P)
+            if (e.KeyCode == Keys.P)
             {
 
             }
+
+            karakter.HareketEt(e);
             Invalidate();
-            if(karakter.Can != 0)
-                sbtTuzak.CanAzalt(karakter);
-            else
+            if (level == 1)
             {
-                zamanlayici.Stop();
-                this.Controls.Clear();
-                karakter = new Karakter();
                 Invalidate();
-                sbtTuzak.SabitTuzakOlustur();
+                if (karakter.Can != 0)
+                    sbtTuzak.CanAzalt(karakter);
+                else
+                {
+                    zamanlayici = new Timer();
+                    this.Controls.Clear();
+                    karakter = new Karakter();
+                    Invalidate();
+                    sbtTuzak.SabitTuzakOlustur();
+                }
+
+                if (karakter.X == 880)
+                {
+                    zamanlayici.Stop();
+                    zamanlayici.Enabled = false;
+                    MessageBox.Show("Oh, you are recovering well.");
+                    this.Controls.Clear();
+                    karakter.Can += 1;
+                    karakter.X = 80;
+                    karakter.Y = 240;
+                    level = 2;
+                    Invalidate();
+                }
+            }
+            if (level == 2)
+            {
+                Invalidate();
+                if (karakter.Can != 0)
+                    dsnTuzak.CanAzalt(karakter);
+                else
+                {
+                    zamanlayici = new Timer();
+                    this.Controls.Clear();
+                    karakter = new Karakter();
+                    level = 1;
+                    Invalidate();
+                    sbtTuzak.SabitTuzakOlustur();
+                }
+                Invalidate();
+                if(karakter.X == 160)
+                {
+                    zamanlayici.Start();
+                    zamanlayici.Enabled = true;
+                }
             }
         }
 
@@ -89,8 +143,11 @@ namespace Oyun_Proje.Desktop
             if (txtName.Text.Length != 0)
             {
                 this.Controls.Clear();
+                this.Text = "Can't Escape";
                 zamanlayici.Start();
+                zamanlayici.Enabled = true;
                 basladiMi = true;
+                level = 1;
                 Invalidate();
                 sbtTuzak.SabitTuzakOlustur();
             }
