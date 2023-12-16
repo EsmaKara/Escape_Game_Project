@@ -48,10 +48,12 @@ namespace Oyun_Proje.Desktop
             cnvrTuzak.Hareket();
             Invalidate();
 
-            if(sayi % 4 == 0)
-                dsnTuzak.DusenTuzakOlustur();
-            if (sayi % 2 == 0)
-                cnvrTuzak.CanavarTuzakOlustur();
+            if(level == 2)
+                if(sayi % 4 == 0)
+                    dsnTuzak.DusenTuzakOlustur();
+            if(level == 3)
+                if (sayi % 2 == 0)
+                    cnvrTuzak.CanavarTuzakOlustur();
             if(sayi % 10 == 0)
                 srpzKutu.KutuOlustur(srpzKutu);
 
@@ -65,7 +67,7 @@ namespace Oyun_Proje.Desktop
                 if (basladiMi == true)
                 {
                     sbtTuzak.SabitTuzakCiz(e.Graphics, karakter);
-                    blok.BlokEkle(e.Graphics, level);
+                    //blok.BlokEkle(e.Graphics, level);
                     if(srpzKutu.X != 0)
                         srpzKutu.KutuCiz(e.Graphics, srpzKutu);
                     karakter.KarakterCiz(e.Graphics, karakter);

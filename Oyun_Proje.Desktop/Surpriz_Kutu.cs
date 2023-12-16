@@ -27,7 +27,7 @@ namespace Oyun_Proje.Desktop
             {
                 if (karakter.Can < 3)
                     karakter.Can += 1;
-                else
+                else if (sayi == 9 || sayi == 10)
                     karakter.Can -= 1;
             }
         }

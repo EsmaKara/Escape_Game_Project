@@ -175,7 +175,7 @@ namespace Oyun_Proje.Desktop
 
         public Canavar_Tuzak()
         {
-            sayi = -1;
+            sayi = 0;
             sayac = 0;
             tuzaklarinDizisi = new Tuzaklar[3][];
             tuzaklar = new Tuzaklar[Boyut];
@@ -214,25 +214,33 @@ namespace Oyun_Proje.Desktop
                 }
             }
 
-            sayac++;
+            if (sayac < 9)
+                sayac++;
 
+            tuzaklarinDizisi[sayi] = new Tuzaklar[10];
+            for (int i = 0; i < 9; i++)
+            {
+                tuzaklarinDizisi[sayi][i] = tuzaklar[i];
+            }
             if (sayi < 2)
                 sayi++;
             else
                 sayi = 0;
-            tuzaklarinDizisi[sayi] = tuzaklar;
         }
 
         public void CanavarTuzakCiz(Graphics cnvrTuzak, Karakter karakter)
         {
+
             for (int i = 0; i < 10; i++)
             {
-                if(tuzaklarinDizisi[sayi][i] != null)
+                if (tuzaklarinDizisi[sayi][i] != null)
+                {
                     if (tuzaklarinDizisi[sayi][i].X != 80)
                     {
                         rastgeleSayi = rnd.Next(0, 6);
                         cnvrTuzak.DrawImage(resimler[rastgeleSayi], tuzaklarinDizisi[sayi][i].X, tuzaklarinDizisi[sayi][i].Y, Boyut, 78);
                     }
+                }
             }
         }
 
