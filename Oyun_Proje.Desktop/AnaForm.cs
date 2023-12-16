@@ -14,6 +14,7 @@ namespace Oyun_Proje.Desktop
         Oyun oyun;
         Sabit_Tuzak sbtTuzak;
         Dusen_Tuzak dsnTuzak;
+        Canavar_Tuzak cnvrTuzak;
         bool basladiMi;
         private int level;
         private int sayi;
@@ -28,6 +29,7 @@ namespace Oyun_Proje.Desktop
             blok = new Bloks();
             sbtTuzak = new Sabit_Tuzak();
             dsnTuzak = new Dusen_Tuzak();
+            cnvrTuzak = new Canavar_Tuzak();
             basladiMi = false;
             zamanlayici.Interval = 1000;
 
@@ -41,11 +43,14 @@ namespace Oyun_Proje.Desktop
         private void Zamanlayici_Tick(object sender, EventArgs e)
         {
             dsnTuzak.Hareket();
+            cnvrTuzak.Hareket();
             Invalidate();
+
             if(sayi % 4 == 0)
-            {
                 dsnTuzak.DusenTuzakOlustur();
-            }
+            if (sayi % 2 == 0)
+                cnvrTuzak.CanavarTuzakOlustur();
+
             sayi++;
         }
 
@@ -78,6 +83,13 @@ namespace Oyun_Proje.Desktop
                 karakter.KarakterCiz(e.Graphics, karakter);
             }
 
+            else if (level == 3)
+            {
+                blok.BlokEkle(e.Graphics, level);
+                cnvrTuzak.CanavarTuzakCiz(e.Graphics, karakter);
+                karakter.KarakterCiz(e.Graphics, karakter);
+            }
+
         }
 
         private void AnaForm_KeyDown(object sender, KeyEventArgs e)
@@ -106,7 +118,7 @@ namespace Oyun_Proje.Desktop
                 if (karakter.X == 880)
                 {
                     zamanlayici.Stop();
-                    zamanlayici.Enabled = false;
+                    zamanlayici.Enabled = true;
                     MessageBox.Show("Oh, you are recovering well.");
                     this.Controls.Clear();
                     if(karakter.Can != 3)
@@ -118,7 +130,7 @@ namespace Oyun_Proje.Desktop
                 }
             }
 
-            if (level == 2)
+            else if (level == 2)
             {
                 Invalidate();
                 if (karakter.Can != 0)
@@ -142,8 +154,8 @@ namespace Oyun_Proje.Desktop
                 if (karakter.X == 880)
                 {
                     zamanlayici.Stop();
-                    zamanlayici.Enabled = false;
-                    MessageBox.Show("Oh, you are recovering well.");
+                    zamanlayici.Enabled = true;
+                    MessageBox.Show("What's that, are you OKAY?");
                     this.Controls.Clear();
                     if (karakter.Can != 3)
                         karakter.Can += 1;
@@ -154,9 +166,37 @@ namespace Oyun_Proje.Desktop
                 }
             }
 
-            if(level == 3)
+            else if(level == 3)
             {
+                Invalidate();
+                if (karakter.Can != 0)
+                    cnvrTuzak.CanAzalt(karakter);
+                else
+                {
+                    zamanlayici = new Timer();
+                    this.Controls.Clear();
+                    karakter = new Karakter();
+                    level = 1;
+                    Invalidate();
+                    sbtTuzak.SabitTuzakOlustur();
+                }
 
+                Invalidate();
+                if (karakter.X == 160)
+                {
+                    zamanlayici.Start();
+                    zamanlayici.Enabled = true;
+                }
+
+                if (karakter.X == 880)
+                {
+                    zamanlayici.Stop();
+                    zamanlayici.Enabled = false;
+                    MessageBox.Show("Hey, it's finally over. Isn't it beautiful?");
+                    this.Controls.Clear();
+                    //oyun.PuanHesapla(zamanlayici.ToString);
+                    Invalidate();
+                }
             }
         }
 

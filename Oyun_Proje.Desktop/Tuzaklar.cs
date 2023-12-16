@@ -8,7 +8,7 @@ namespace Oyun_Proje.Desktop
     internal class Tuzaklar : Cisim
     {
         public Tuzaklar[] tuzaklar = new Tuzaklar[10];
-        public Image[] resimler = new Image[3];
+        public Image[] resimler;
         public int can = 3;
         protected int sayac;
         protected int rastgeleSayi;
@@ -50,6 +50,7 @@ namespace Oyun_Proje.Desktop
     {
         public Sabit_Tuzak()
         {
+            resimler = new Image[3];
             for (int i = 0; i < 3; i++)
             {
                 if (i == 0)
@@ -79,7 +80,7 @@ namespace Oyun_Proje.Desktop
                 }
                 for (; ; )
                 {
-                    rastgeleSayi = rnd.Next(160, 341);
+                    rastgeleSayi = rnd.Next(160, 321);
                     if (rastgeleSayi % 80 == 0)
                     {
                         tuzaklar[sayac].Y = rastgeleSayi;
@@ -143,7 +144,7 @@ namespace Oyun_Proje.Desktop
                 }
                 for (; ; )
                 {
-                    rastgeleSayi = rnd.Next(80, 341);
+                    rastgeleSayi = rnd.Next(0, 321);
                     if (rastgeleSayi % 80 == 0)
                     {
                         tuzaklar[sayac].Y = rastgeleSayi;
@@ -172,52 +173,81 @@ namespace Oyun_Proje.Desktop
         }
     }
 
-    //internal class Canavar_Tuzak:Tuzaklar
-    //{
-    //    Tuzaklar[][] tuzaklarinDizisi;
-    //    int sayi;
+    internal class Canavar_Tuzak : Tuzaklar
+    {
+        Tuzaklar[][] tuzaklarinDizisi;
+        int sayi;
 
-    //    public Canavar_Tuzak()
-    //    {
-    //        sayi = 0;
-    //        sayac = 0;
-    //        tuzaklarinDizisi = new Tuzaklar[3][];
-    //        tuzaklar = new Tuzaklar[Boyut];
-    //        resim = Image.FromFile("");
-    //    }
+        public Canavar_Tuzak()
+        {
+            sayi = -1;
+            sayac = 0;
+            tuzaklarinDizisi = new Tuzaklar[3][];
+            tuzaklar = new Tuzaklar[Boyut];
+            resimler = new Image[6];
 
-    //    public void CanavarTuzakOlustur()
-    //    {
-    //        tuzaklar[sayac] = new Canavar_Tuzak();
-    //        tuzaklar[sayac].X = 800;
-              //tuzaklar[sayac].Y = 0;
+            for (int i = 0; i < 6; i++)
+            {
+                if (i == 0)
+                    resimler[i] = Image.FromFile("cnvrTuzak1.ico");
+                else if (i == 1)
+                    resimler[i] = Image.FromFile("cnvrTuzak2.ico");
+                else if (i == 2)
+                    resimler[i] = Image.FromFile("cnvrTuzak3.ico");
+                else if (i == 3)
+                    resimler[i] = Image.FromFile("cnvrTuzak4.ico");
+                else if(i == 4)
+                    resimler[i] = Image.FromFile("cnvrTuzak5.ico");
+                else  
+                    resimler[i] = Image.FromFile("cnvrTuzak6.ico");
+            }
+        }
 
-    //        for (; ; )
-    //        {
-    //            rastgeleSayi = rnd.Next(80, 341);
-    //            if (rastgeleSayi % 80 == 0)
-    //            {
-    //                tuzaklar[sayac].Y = rastgeleSayi;
-    //                break;
-    //            }
-    //        }
+        public void CanavarTuzakOlustur()
+        {
+            tuzaklar[sayac] = new Canavar_Tuzak();
+            tuzaklar[sayac].X = 800;
+            tuzaklar[sayac].Y = 0;
 
-    //        sayac++;
+            for (; ; )
+            {
+                rastgeleSayi = rnd.Next(160, 321);
+                if (rastgeleSayi % 80 == 0)
+                {
+                    tuzaklar[sayac].Y = rastgeleSayi;
+                    break;
+                }
+            }
 
-    //        tuzaklarinDizisi[sayi] = tuzaklar;
-    //        if (sayi < 3)
-    //            sayi++;
-    //        else
-    //            sayi = 0;
-    //    }
+            sayac++;
 
-    //    public void CanavarTuzakCiz(Graphics cnvrTuzak, Karakter karakter)
-    //    {
-    //        for (int i = 0; i < 10; i++)
-    //        {
-    //            if (tuzaklar[i] != null)
-    //                cnvrTuzak.DrawImage(resim, tuzaklarinDizisi[sayi][i].X, tuzaklarinDizisi[sayi][i].Y, Boyut, Boyut);
-    //        }
-    //    }
-    //}
+            if (sayi < 2)
+                sayi++;
+            else
+                sayi = 0;
+            tuzaklarinDizisi[sayi] = tuzaklar;
+        }
+
+        public void CanavarTuzakCiz(Graphics cnvrTuzak, Karakter karakter)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                if(tuzaklarinDizisi[sayi][i] != null)
+                    if (tuzaklarinDizisi[sayi][i].X != 80)
+                    {
+                        rastgeleSayi = rnd.Next(0, 6);
+                        cnvrTuzak.DrawImage(resimler[rastgeleSayi], tuzaklarinDizisi[sayi][i].X, tuzaklarinDizisi[sayi][i].Y, Boyut, 78);
+                    }
+            }
+        }
+
+        public override void Hareket()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                if (tuzaklar[i] != null)
+                    tuzaklar[i].X -= Boyut;
+            }
+        }
+    }
 }

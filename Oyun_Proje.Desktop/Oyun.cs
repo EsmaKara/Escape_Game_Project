@@ -10,8 +10,13 @@ namespace Oyun_Proje.Desktop
 
         }
         
-        public static void EkraniTemizle()
+        public void EkraniTemizle()
         {
+        }
+
+        public void PuanHesapla()
+        {
+
         }
 
         public void OyunuBaslat(Timer zaman)
