@@ -151,7 +151,6 @@ namespace Oyun_Proje.Desktop
                     }
                 }
             }
-
         }
         public void DusenTuzakCiz (Graphics dusenCiz, Karakter karakter)
         {
@@ -172,4 +171,53 @@ namespace Oyun_Proje.Desktop
             }
         }
     }
+
+    //internal class Canavar_Tuzak:Tuzaklar
+    //{
+    //    Tuzaklar[][] tuzaklarinDizisi;
+    //    int sayi;
+
+    //    public Canavar_Tuzak()
+    //    {
+    //        sayi = 0;
+    //        sayac = 0;
+    //        tuzaklarinDizisi = new Tuzaklar[3][];
+    //        tuzaklar = new Tuzaklar[Boyut];
+    //        resim = Image.FromFile("");
+    //    }
+
+    //    public void CanavarTuzakOlustur()
+    //    {
+    //        tuzaklar[sayac] = new Canavar_Tuzak();
+    //        tuzaklar[sayac].X = 800;
+              //tuzaklar[sayac].Y = 0;
+
+    //        for (; ; )
+    //        {
+    //            rastgeleSayi = rnd.Next(80, 341);
+    //            if (rastgeleSayi % 80 == 0)
+    //            {
+    //                tuzaklar[sayac].Y = rastgeleSayi;
+    //                break;
+    //            }
+    //        }
+
+    //        sayac++;
+
+    //        tuzaklarinDizisi[sayi] = tuzaklar;
+    //        if (sayi < 3)
+    //            sayi++;
+    //        else
+    //            sayi = 0;
+    //    }
+
+    //    public void CanavarTuzakCiz(Graphics cnvrTuzak, Karakter karakter)
+    //    {
+    //        for (int i = 0; i < 10; i++)
+    //        {
+    //            if (tuzaklar[i] != null)
+    //                cnvrTuzak.DrawImage(resim, tuzaklarinDizisi[sayi][i].X, tuzaklarinDizisi[sayi][i].Y, Boyut, Boyut);
+    //        }
+    //    }
+    //}
 }

@@ -42,11 +42,11 @@ namespace Oyun_Proje.Desktop
         {
             dsnTuzak.Hareket();
             Invalidate();
-            sayi++;
-            if(sayi % 3 == 0)
+            if(sayi % 4 == 0)
             {
                 dsnTuzak.DusenTuzakOlustur();
             }
+            sayi++;
         }
 
         private void AnaForm_Paint(object sender, PaintEventArgs e)
@@ -56,7 +56,7 @@ namespace Oyun_Proje.Desktop
                 if (basladiMi == true)
                 {
                     sbtTuzak.SabitTuzakCiz(e.Graphics, karakter);
-                    blok.BlokEkle(e.Graphics, level);
+                //    blok.BlokEkle(e.Graphics, level);
                     karakter.KarakterCiz(e.Graphics, karakter);
                 }
                 for (int i = 0; i < 10; i++)
@@ -77,6 +77,7 @@ namespace Oyun_Proje.Desktop
                 dsnTuzak.DusenTuzakCiz(e.Graphics, karakter);
                 karakter.KarakterCiz(e.Graphics, karakter);
             }
+
         }
 
         private void AnaForm_KeyDown(object sender, KeyEventArgs e)
@@ -108,13 +109,15 @@ namespace Oyun_Proje.Desktop
                     zamanlayici.Enabled = false;
                     MessageBox.Show("Oh, you are recovering well.");
                     this.Controls.Clear();
-                    karakter.Can += 1;
+                    if(karakter.Can != 3)
+                        karakter.Can += 1;
                     karakter.X = 80;
                     karakter.Y = 240;
                     level = 2;
                     Invalidate();
                 }
             }
+
             if (level == 2)
             {
                 Invalidate();
@@ -135,6 +138,25 @@ namespace Oyun_Proje.Desktop
                     zamanlayici.Start();
                     zamanlayici.Enabled = true;
                 }
+
+                if (karakter.X == 880)
+                {
+                    zamanlayici.Stop();
+                    zamanlayici.Enabled = false;
+                    MessageBox.Show("Oh, you are recovering well.");
+                    this.Controls.Clear();
+                    if (karakter.Can != 3)
+                        karakter.Can += 1;
+                    karakter.X = 80;
+                    karakter.Y = 240;
+                    level = 3;
+                    Invalidate();
+                }
+            }
+
+            if(level == 3)
+            {
+
             }
         }
 
