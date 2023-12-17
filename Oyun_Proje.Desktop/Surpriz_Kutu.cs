@@ -13,11 +13,8 @@ namespace Oyun_Proje.Desktop
             resimler = new Image[6];
             rnd = new Random();
             sayi = 0;
-            
-            for (int i = 0; i < 6; i++)
-            {
-                resimler[i] = Image.FromFile("srpzKutu1.ico");
-            }
+
+            resim = Image.FromFile("srpzKutu1.ico");
         }
 
         public void RastgeleCan(Karakter karakter)
@@ -56,9 +53,8 @@ namespace Oyun_Proje.Desktop
 
         public void KutuCiz(Graphics kutuCiz, Surpriz_Kutu kutu)
         {
-            rastgeleSayi = rnd.Next(0, 6);
             if (kutu != null)
-                kutuCiz.DrawImage(resimler[rastgeleSayi], kutu.X, kutu.Y, Boyut, Boyut); 
+                kutuCiz.DrawImage(resim, kutu.X, kutu.Y, Boyut, Boyut); 
         }
     }
 }

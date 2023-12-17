@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
@@ -8,6 +9,8 @@ namespace Oyun_Proje.Desktop
 {
     public partial class AnaForm : Form
     {
+        List<Panel> ls = new List<Panel>();
+
         Bloks blok;
         Karakter karakter;
         Timer zamanlayici;
@@ -16,6 +19,7 @@ namespace Oyun_Proje.Desktop
         Dusen_Tuzak dsnTuzak;
         Canavar_Tuzak cnvrTuzak;
         Surpriz_Kutu srpzKutu;
+        Panel pnlOyunBilgi;
         bool basladiMi;
         private int level;
         private int sayi;
@@ -32,6 +36,7 @@ namespace Oyun_Proje.Desktop
             dsnTuzak = new Dusen_Tuzak();
             cnvrTuzak = new Canavar_Tuzak();
             srpzKutu = new Surpriz_Kutu();
+            pnlOyunBilgi = new Panel();
             basladiMi = false;
             zamanlayici.Interval = 1000;
 
@@ -50,10 +55,10 @@ namespace Oyun_Proje.Desktop
 
             if(level == 2)
                 if(sayi % 4 == 0)
-                    dsnTuzak.DusenTuzakOlustur();
+                    dsnTuzak.TuzakOlustur();
             if(level == 3)
                 if (sayi % 2 == 0)
-                    cnvrTuzak.CanavarTuzakOlustur();
+                    cnvrTuzak.TuzakOlustur();
             if (sayi % 10 == 0)
             {
                 srpzKutu = new Surpriz_Kutu();
@@ -69,12 +74,17 @@ namespace Oyun_Proje.Desktop
             {
                 if (basladiMi == true)
                 {
-                    sbtTuzak.SabitTuzakCiz(e.Graphics, karakter);
+                    sbtTuzak.TuzakCiz(e.Graphics, karakter);
                     //blok.BlokEkle(e.Graphics, level);
                     if(srpzKutu != null)
                         if(srpzKutu.X != 0)
                             srpzKutu.KutuCiz(e.Graphics, srpzKutu);
                     karakter.KarakterCiz(e.Graphics, karakter);
+
+                    ls.Add(pnlOyunBilgi);
+                    oyun.EkranaYazdir(pnlOyunBilgi, txtName.Text, level, karakter, zamanlayici);
+                    Controls.Add(pnlOyunBilgi);
+                    pnlOyunBilgi.Show();
                 }
                 for (int i = 0; i < 10; i++)
                 {
@@ -87,6 +97,11 @@ namespace Oyun_Proje.Desktop
                                     srpzKutu.KutuCiz(e.Graphics, srpzKutu);
                             sbtTuzak.SabitTuzakGoster(e.Graphics, karakter);
                             karakter.KarakterCiz(e.Graphics, karakter);
+
+                            ls.Add(pnlOyunBilgi);
+                            oyun.EkranaYazdir(pnlOyunBilgi, txtName.Text, level, karakter, zamanlayici);
+                            Controls.Add(pnlOyunBilgi);
+                            pnlOyunBilgi.Show();
                         }
                 }
             }
@@ -97,8 +112,13 @@ namespace Oyun_Proje.Desktop
                 if (srpzKutu != null)
                     if (srpzKutu.X != 0)
                         srpzKutu.KutuCiz(e.Graphics, srpzKutu);
-                dsnTuzak.DusenTuzakCiz(e.Graphics, karakter);
+                dsnTuzak.TuzakCiz(e.Graphics, karakter);
                 karakter.KarakterCiz(e.Graphics, karakter);
+
+                ls.Add(pnlOyunBilgi);
+                oyun.EkranaYazdir(pnlOyunBilgi, txtName.Text, level, karakter, zamanlayici);
+                Controls.Add(pnlOyunBilgi);
+                pnlOyunBilgi.Show();
             }
 
             else if (level == 3)
@@ -107,8 +127,13 @@ namespace Oyun_Proje.Desktop
                 if (srpzKutu != null)
                     if (srpzKutu.X != 0)
                         srpzKutu.KutuCiz(e.Graphics, srpzKutu);
-                cnvrTuzak.CanavarTuzakCiz(e.Graphics, karakter);
+                cnvrTuzak.TuzakCiz(e.Graphics, karakter);
                 karakter.KarakterCiz(e.Graphics, karakter);
+
+                ls.Add(pnlOyunBilgi);
+                oyun.EkranaYazdir(pnlOyunBilgi, txtName.Text, level, karakter, zamanlayici);
+                Controls.Add(pnlOyunBilgi);
+                pnlOyunBilgi.Show();
             }
 
         }
@@ -143,7 +168,7 @@ namespace Oyun_Proje.Desktop
                     karakter = new Karakter();
                     basladiMi = true;
                     Invalidate();
-                    sbtTuzak.SabitTuzakOlustur();
+                    sbtTuzak.TuzakOlustur();
                 }
 
                 if (karakter.X == 880)
@@ -158,7 +183,7 @@ namespace Oyun_Proje.Desktop
                     karakter.Y = 240;
                     level = 2;
                     if (basladiMi)
-                        dsnTuzak.DusenTuzakOlustur();
+                        dsnTuzak.TuzakOlustur();
                     Invalidate();
                 }
             }
@@ -176,7 +201,7 @@ namespace Oyun_Proje.Desktop
                     level = 1;
                     basladiMi = true;
                     Invalidate();
-                    sbtTuzak.SabitTuzakOlustur();
+                    sbtTuzak.TuzakOlustur();
                 }
                 Invalidate();
                 if(karakter.X == 160)
@@ -218,7 +243,7 @@ namespace Oyun_Proje.Desktop
                     level = 1;
                     basladiMi = true;
                     Invalidate();
-                    sbtTuzak.SabitTuzakOlustur();
+                    sbtTuzak.TuzakOlustur();
                 }
 
                 Invalidate();
@@ -251,8 +276,16 @@ namespace Oyun_Proje.Desktop
                 basladiMi = true;
                 level = 1;
                 Invalidate();
-                sbtTuzak.SabitTuzakOlustur();
+                sbtTuzak.TuzakOlustur();
             }
+        }
+
+        private void btnInfo_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("It is played with the arrow keys. You can 'P'ause the game. \nThe surprise boxes will " +
+                "keep an EYE on you, don't miss them.80% good luck with you. \n Level 1: \n Watch where you step, you don't" +
+                " want to fall into the depths of your mind. \n Level 2: \n They're raining down on you, won't you run away? \n" +
+                " Level 3: \n They're coming, YOU CAN'T ESCAPE...");
         }
     }
 }

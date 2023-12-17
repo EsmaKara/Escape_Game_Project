@@ -39,6 +39,8 @@ namespace Oyun_Proje.Desktop
             }
         }
         public virtual void Hareket(Karakter karakter)   {   }
+        public virtual void TuzakCiz(Graphics cizim, Karakter karakter) { }
+        public virtual void TuzakOlustur() { }
     }
 
     internal class Sabit_Tuzak : Tuzaklar
@@ -56,7 +58,7 @@ namespace Oyun_Proje.Desktop
                     resimler[i] = Image.FromFile("sbtTuzak3.jpeg");
             }
         }
-        public void SabitTuzakOlustur()
+        public override void TuzakOlustur()
         {
             for (sayac = 0; sayac < 10; sayac++)
             {
@@ -85,7 +87,7 @@ namespace Oyun_Proje.Desktop
             }
         }
 
-        public void SabitTuzakCiz(Graphics sbtTuzak, Karakter karakter)
+        public override void TuzakCiz(Graphics sbtTuzak, Karakter karakter)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -120,7 +122,7 @@ namespace Oyun_Proje.Desktop
             zamanlayici.Interval = 3000;
             resim = Image.FromFile("dsnTuzak.ico");
         }
-        public void DusenTuzakOlustur()
+        public override void TuzakOlustur()
         {
             for (sayac = 0; sayac < 10; sayac++)
             {
@@ -148,7 +150,7 @@ namespace Oyun_Proje.Desktop
                 }
             }
         }
-        public void DusenTuzakCiz (Graphics dusenCiz, Karakter karakter)
+        public override void TuzakCiz(Graphics dusenCiz, Karakter karakter)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -202,7 +204,7 @@ namespace Oyun_Proje.Desktop
             }
         }
 
-        public void CanavarTuzakOlustur()
+        public override void TuzakOlustur()
         {
             tuzaklar[sayac] = new Canavar_Tuzak();
             tuzaklar[sayac].X = 800;
@@ -230,7 +232,7 @@ namespace Oyun_Proje.Desktop
             tuzaklarinDizisi[sayi] = tuzaklar;
         }
 
-        public void CanavarTuzakCiz(Graphics cnvrTuzak, Karakter karakter)
+        public override void TuzakCiz(Graphics cnvrTuzak, Karakter karakter)
         {
             if (tuzaklarinDizisi[sayi] != null)
             {

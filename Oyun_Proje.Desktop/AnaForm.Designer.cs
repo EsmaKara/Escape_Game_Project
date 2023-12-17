@@ -32,11 +32,11 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
-            this.lblInfo = new System.Windows.Forms.Label();
             this.lblStartInfo = new System.Windows.Forms.Label();
-            this.lblTopSkors = new System.Windows.Forms.Label();
             this.MenuSittingPicture = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnInfo = new System.Windows.Forms.Button();
+            this.btnSkors = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.MenuSittingPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -44,7 +44,7 @@
             // txtName
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.Location = new System.Drawing.Point(445, 185);
+            this.txtName.Location = new System.Drawing.Point(451, 187);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(404, 22);
             this.txtName.TabIndex = 0;
@@ -55,7 +55,7 @@
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblName.ForeColor = System.Drawing.Color.White;
-            this.lblName.Location = new System.Drawing.Point(543, 133);
+            this.lblName.Location = new System.Drawing.Point(557, 136);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(191, 38);
             this.lblName.TabIndex = 1;
@@ -64,25 +64,13 @@
             // btnStart
             // 
             this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStart.Location = new System.Drawing.Point(496, 448);
+            this.btnStart.Location = new System.Drawing.Point(498, 454);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(296, 39);
+            this.btnStart.Size = new System.Drawing.Size(317, 43);
             this.btnStart.TabIndex = 2;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
-            // 
-            // lblInfo
-            // 
-            this.lblInfo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.lblInfo.AutoSize = true;
-            this.lblInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.8F);
-            this.lblInfo.ForeColor = System.Drawing.Color.White;
-            this.lblInfo.Location = new System.Drawing.Point(509, 538);
-            this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(272, 25);
-            this.lblInfo.TabIndex = 3;
-            this.lblInfo.Text = "Press i for keypad information.";
             // 
             // lblStartInfo
             // 
@@ -95,16 +83,6 @@
             this.lblStartInfo.Size = new System.Drawing.Size(485, 20);
             this.lblStartInfo.TabIndex = 4;
             this.lblStartInfo.Text = "Type your name and press enter or the button to start the game.";
-            // 
-            // lblTopSkors
-            // 
-            this.lblTopSkors.AutoSize = true;
-            this.lblTopSkors.ForeColor = System.Drawing.Color.White;
-            this.lblTopSkors.Location = new System.Drawing.Point(22, 16);
-            this.lblTopSkors.Name = "lblTopSkors";
-            this.lblTopSkors.Size = new System.Drawing.Size(70, 16);
-            this.lblTopSkors.TabIndex = 5;
-            this.lblTopSkors.Text = "Top Skors";
             // 
             // MenuSittingPicture
             // 
@@ -128,6 +106,32 @@
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             // 
+            // btnInfo
+            // 
+            this.btnInfo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnInfo.BackColor = System.Drawing.Color.Black;
+            this.btnInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.8F);
+            this.btnInfo.ForeColor = System.Drawing.Color.White;
+            this.btnInfo.Location = new System.Drawing.Point(498, 525);
+            this.btnInfo.Name = "btnInfo";
+            this.btnInfo.Size = new System.Drawing.Size(317, 35);
+            this.btnInfo.TabIndex = 8;
+            this.btnInfo.Text = "Click here for information.";
+            this.btnInfo.UseVisualStyleBackColor = false;
+            this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
+            // 
+            // btnSkors
+            // 
+            this.btnSkors.BackColor = System.Drawing.Color.Black;
+            this.btnSkors.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.8F);
+            this.btnSkors.ForeColor = System.Drawing.Color.White;
+            this.btnSkors.Location = new System.Drawing.Point(31, 25);
+            this.btnSkors.Name = "btnSkors";
+            this.btnSkors.Size = new System.Drawing.Size(143, 48);
+            this.btnSkors.TabIndex = 9;
+            this.btnSkors.Text = "Top Skors";
+            this.btnSkors.UseVisualStyleBackColor = false;
+            // 
             // AnaForm
             // 
             this.AcceptButton = this.btnStart;
@@ -137,11 +141,11 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1282, 653);
+            this.Controls.Add(this.btnSkors);
+            this.Controls.Add(this.btnInfo);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblStartInfo);
             this.Controls.Add(this.MenuSittingPicture);
-            this.Controls.Add(this.lblTopSkors);
-            this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.txtName);
@@ -164,11 +168,11 @@
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Label lblStartInfo;
-        private System.Windows.Forms.Label lblTopSkors;
         private System.Windows.Forms.PictureBox MenuSittingPicture;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnInfo;
+        private System.Windows.Forms.Button btnSkors;
     }
 }
 
