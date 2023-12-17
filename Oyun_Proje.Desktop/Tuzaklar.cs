@@ -38,7 +38,7 @@ namespace Oyun_Proje.Desktop
                 MessageBox.Show("YOU DIED IN PAIN..");
             }
         }
-        public virtual void Hareket()   {   }
+        public virtual void Hareket(Karakter karakter)   {   }
     }
 
     internal class Sabit_Tuzak : Tuzaklar
@@ -158,10 +158,14 @@ namespace Oyun_Proje.Desktop
             }
         }
 
-        public override void Hareket()
+        public override void Hareket(Karakter karakter)
         {
             for (int i =0; i < 10; i++)
             {
+                if(karakter.Can > 0)
+                    if (tuzaklar[i] != null)
+                        if (tuzaklar[i].X == karakter.X && tuzaklar[i].Y == karakter.Y)
+                            CanAzalt(karakter);
                 if (tuzaklar[i] != null)
                     tuzaklar[i].Y += Boyut;
             }
@@ -170,14 +174,14 @@ namespace Oyun_Proje.Desktop
 
     internal class Canavar_Tuzak : Tuzaklar
     {
-        Tuzaklar[][] tuzaklarinDizisi;
+        public Tuzaklar[][] tuzaklarinDizisi;
         int sayi;
 
         public Canavar_Tuzak()
         {
             sayi = 0;
             sayac = 0;
-            tuzaklarinDizisi = new Tuzaklar[3][];
+            tuzaklarinDizisi = new Tuzaklar[10][];
             tuzaklar = new Tuzaklar[Boyut];
             resimler = new Image[6];
 
@@ -217,37 +221,41 @@ namespace Oyun_Proje.Desktop
             if (sayac < 9)
                 sayac++;
 
-            tuzaklarinDizisi[sayi] = new Tuzaklar[10];
-            for (int i = 0; i < 9; i++)
-            {
-                tuzaklarinDizisi[sayi][i] = tuzaklar[i];
-            }
-            if (sayi < 2)
+            if (sayi < 9)
                 sayi++;
             else
                 sayi = 0;
+            tuzaklarinDizisi[sayi] = tuzaklar;
         }
 
         public void CanavarTuzakCiz(Graphics cnvrTuzak, Karakter karakter)
         {
-
-            for (int i = 0; i < 10; i++)
+            if (tuzaklarinDizisi[sayi] != null)
             {
-                if (tuzaklarinDizisi[sayi][i] != null)
+                for (int i = 0; i < 10; i++)
                 {
-                    if (tuzaklarinDizisi[sayi][i].X != 80)
+                    if (tuzaklarinDizisi[sayi][i] != null)
                     {
-                        rastgeleSayi = rnd.Next(0, 6);
-                        cnvrTuzak.DrawImage(resimler[rastgeleSayi], tuzaklarinDizisi[sayi][i].X, tuzaklarinDizisi[sayi][i].Y, Boyut, 78);
+                        if (tuzaklarinDizisi[sayi][i].X != 80)
+                        {
+                            rastgeleSayi = rnd.Next(0, 6);
+                            cnvrTuzak.DrawImage(resimler[rastgeleSayi], tuzaklarinDizisi[sayi][i].X, tuzaklarinDizisi[sayi][i].Y, Boyut, 78);
+                        }
+                        else if (tuzaklarinDizisi[sayi][i].X == 80)
+                            tuzaklarinDizisi[sayi][i] = null;
                     }
                 }
             }
         }
 
-        public override void Hareket()
+        public override void Hareket(Karakter karakter)
         {
             for (int i = 0; i < 10; i++)
             {
+                if (karakter.Can > 0)
+                    if (tuzaklar[i] != null)
+                        if (tuzaklar[i].X == karakter.X && tuzaklar[i].Y == karakter.Y)
+                            CanAzalt(karakter);
                 if (tuzaklar[i] != null)
                     tuzaklar[i].X -= Boyut;
             }

@@ -44,8 +44,8 @@ namespace Oyun_Proje.Desktop
 
         private void Zamanlayici_Tick(object sender, EventArgs e)
         {
-            dsnTuzak.Hareket();
-            cnvrTuzak.Hareket();
+            dsnTuzak.Hareket(karakter);
+            cnvrTuzak.Hareket(karakter);
             Invalidate();
 
             if(level == 2)
@@ -132,6 +132,7 @@ namespace Oyun_Proje.Desktop
                     zamanlayici = new Timer();
                     this.Controls.Clear();
                     karakter = new Karakter();
+                    basladiMi = true;
                     Invalidate();
                     sbtTuzak.SabitTuzakOlustur();
                 }
@@ -147,6 +148,8 @@ namespace Oyun_Proje.Desktop
                     karakter.X = 80;
                     karakter.Y = 240;
                     level = 2;
+                    if (basladiMi)
+                        dsnTuzak.DusenTuzakOlustur();
                     Invalidate();
                 }
             }
@@ -156,12 +159,13 @@ namespace Oyun_Proje.Desktop
                 Invalidate();
                 if (karakter.Can != 0)
                     dsnTuzak.CanAzalt(karakter);
-                else
+                else if(karakter.Can == 0)
                 {
                     zamanlayici = new Timer();
                     this.Controls.Clear();
                     karakter = new Karakter();
                     level = 1;
+                    basladiMi = true;
                     Invalidate();
                     sbtTuzak.SabitTuzakOlustur();
                 }
@@ -170,6 +174,7 @@ namespace Oyun_Proje.Desktop
                 {
                     zamanlayici.Start();
                     zamanlayici.Enabled = true;
+                    basladiMi = false;
                 }
 
                 if (karakter.X == 880)
@@ -197,7 +202,12 @@ namespace Oyun_Proje.Desktop
                     zamanlayici = new Timer();
                     this.Controls.Clear();
                     karakter = new Karakter();
+                    for(int i = 0; i < 10; i++)
+                        if (cnvrTuzak.tuzaklarinDizisi[i] != null)
+                            for (int j = 0; j < 10; j++)
+                            cnvrTuzak.tuzaklarinDizisi[i][j] = null;
                     level = 1;
+                    basladiMi = true;
                     Invalidate();
                     sbtTuzak.SabitTuzakOlustur();
                 }
