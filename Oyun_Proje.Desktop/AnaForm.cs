@@ -54,8 +54,11 @@ namespace Oyun_Proje.Desktop
             if(level == 3)
                 if (sayi % 2 == 0)
                     cnvrTuzak.CanavarTuzakOlustur();
-            if(sayi % 10 == 0)
+            if (sayi % 10 == 0)
+            {
+                srpzKutu = new Surpriz_Kutu();
                 srpzKutu.KutuOlustur(srpzKutu);
+            }
 
             sayi++;
         }
@@ -68,8 +71,9 @@ namespace Oyun_Proje.Desktop
                 {
                     sbtTuzak.SabitTuzakCiz(e.Graphics, karakter);
                     //blok.BlokEkle(e.Graphics, level);
-                    if(srpzKutu.X != 0)
-                        srpzKutu.KutuCiz(e.Graphics, srpzKutu);
+                    if(srpzKutu != null)
+                        if(srpzKutu.X != 0)
+                            srpzKutu.KutuCiz(e.Graphics, srpzKutu);
                     karakter.KarakterCiz(e.Graphics, karakter);
                 }
                 for (int i = 0; i < 10; i++)
@@ -78,8 +82,9 @@ namespace Oyun_Proje.Desktop
                         if (karakter.X == sbtTuzak.tuzaklar[i].X && karakter.Y == sbtTuzak.tuzaklar[i].Y)
                         {
                             blok.BlokEkle(e.Graphics, level);
-                            if (srpzKutu.X != 0)
-                                srpzKutu.KutuCiz(e.Graphics, srpzKutu);
+                            if (srpzKutu != null)
+                                if (srpzKutu.X != 0)
+                                    srpzKutu.KutuCiz(e.Graphics, srpzKutu);
                             sbtTuzak.SabitTuzakGoster(e.Graphics, karakter);
                             karakter.KarakterCiz(e.Graphics, karakter);
                         }
@@ -89,8 +94,9 @@ namespace Oyun_Proje.Desktop
             else if (level == 2)
             {
                 blok.BlokEkle(e.Graphics, level);
-                if (srpzKutu.X != 0)
-                    srpzKutu.KutuCiz(e.Graphics, srpzKutu);
+                if (srpzKutu != null)
+                    if (srpzKutu.X != 0)
+                        srpzKutu.KutuCiz(e.Graphics, srpzKutu);
                 dsnTuzak.DusenTuzakCiz(e.Graphics, karakter);
                 karakter.KarakterCiz(e.Graphics, karakter);
             }
@@ -98,8 +104,9 @@ namespace Oyun_Proje.Desktop
             else if (level == 3)
             {
                 blok.BlokEkle(e.Graphics, level);
-                if (srpzKutu.X != 0)
-                    srpzKutu.KutuCiz(e.Graphics, srpzKutu);
+                if (srpzKutu != null)
+                    if (srpzKutu.X != 0)
+                        srpzKutu.KutuCiz(e.Graphics, srpzKutu);
                 cnvrTuzak.CanavarTuzakCiz(e.Graphics, karakter);
                 karakter.KarakterCiz(e.Graphics, karakter);
             }
@@ -116,11 +123,13 @@ namespace Oyun_Proje.Desktop
             karakter.HareketEt(e);
             Invalidate();
 
-            if (karakter.X == srpzKutu.X && karakter.Y == srpzKutu.Y)
-            {
-                srpzKutu.RastgeleCan(karakter);
-                Invalidate();
-            }
+            if (srpzKutu != null)
+                if (karakter.X == srpzKutu.X && karakter.Y == srpzKutu.Y)
+                {
+                    srpzKutu.RastgeleCan(karakter);
+                    srpzKutu = null;
+                    Invalidate();
+                }
 
             if (level == 1)
             {

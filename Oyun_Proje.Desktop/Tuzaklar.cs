@@ -220,6 +220,8 @@ namespace Oyun_Proje.Desktop
 
             if (sayac < 9)
                 sayac++;
+            else
+                sayac = 0;
 
             if (sayi < 9)
                 sayi++;
