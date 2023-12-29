@@ -38,7 +38,7 @@ namespace Oyun_Proje.Desktop
                 MessageBox.Show("YOU DIED IN PAIN..");
             }
         }
-        public virtual void Hareket(Karakter karakter)   {   }
+        public virtual void Hareket(Karakter karakter) { }
         public virtual void TuzakCiz(Graphics cizim, Karakter karakter) { }
         public virtual void TuzakOlustur() { }
     }
@@ -162,14 +162,14 @@ namespace Oyun_Proje.Desktop
 
         public override void Hareket(Karakter karakter)
         {
-            for (int i =0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
-                if(karakter.Can > 0)
+                if (tuzaklar[i] != null)
+                    tuzaklar[i].Y += Boyut;
+                if (karakter.Can > 0)
                     if (tuzaklar[i] != null)
                         if (tuzaklar[i].X == karakter.X && tuzaklar[i].Y == karakter.Y)
                             CanAzalt(karakter);
-                if (tuzaklar[i] != null)
-                    tuzaklar[i].Y += Boyut;
             }
         }
     }
@@ -197,9 +197,9 @@ namespace Oyun_Proje.Desktop
                     resimler[i] = Image.FromFile("cnvrTuzak3.ico");
                 else if (i == 3)
                     resimler[i] = Image.FromFile("cnvrTuzak4.ico");
-                else if(i == 4)
+                else if (i == 4)
                     resimler[i] = Image.FromFile("cnvrTuzak5.ico");
-                else  
+                else
                     resimler[i] = Image.FromFile("cnvrTuzak6.ico");
             }
         }
@@ -256,12 +256,12 @@ namespace Oyun_Proje.Desktop
         {
             for (int i = 0; i < 10; i++)
             {
+                if (tuzaklar[i] != null)
+                    tuzaklar[i].X -= Boyut;
                 if (karakter.Can > 0)
                     if (tuzaklar[i] != null)
                         if (tuzaklar[i].X == karakter.X && tuzaklar[i].Y == karakter.Y)
                             CanAzalt(karakter);
-                if (tuzaklar[i] != null)
-                    tuzaklar[i].X -= Boyut;
             }
         }
     }

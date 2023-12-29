@@ -54,14 +54,29 @@
     </Compile>
     <Compile Include="Bloks.cs" />
     <Compile Include="Cisim.cs" />
+    <Compile Include="HtP_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HtP_Form.Designer.cs">
+      <DependentUpon>HtP_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="Karakter.cs" />
     <Compile Include="Oyun.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Surpriz_Kutu.cs" />
+    <Compile Include="Top_Skors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Top_Skors.Designer.cs">
+      <DependentUpon>Top_Skors.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tuzaklar.cs" />
     <EmbeddedResource Include="AnaForm.resx">
       <DependentUpon>AnaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HtP_Form.resx">
+      <DependentUpon>HtP_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -72,6 +87,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Top_Skors.resx">
+      <DependentUpon>Top_Skors.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

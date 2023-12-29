@@ -1,6 +1,8 @@
 ﻿
 using System;
 using System.Collections.Generic;
+
+//using System.Collections.Generic;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
@@ -9,7 +11,7 @@ namespace Oyun_Proje.Desktop
 {
     public partial class AnaForm : Form
     {
-        List<Panel> ls = new List<Panel>();
+        List<Panel> ls;
 
         Bloks blok;
         Karakter karakter;
@@ -19,7 +21,9 @@ namespace Oyun_Proje.Desktop
         Dusen_Tuzak dsnTuzak;
         Canavar_Tuzak cnvrTuzak;
         Surpriz_Kutu srpzKutu;
+
         Panel pnlOyunBilgi;
+
         bool basladiMi;
         private int level;
         private int sayi;
@@ -36,9 +40,13 @@ namespace Oyun_Proje.Desktop
             dsnTuzak = new Dusen_Tuzak();
             cnvrTuzak = new Canavar_Tuzak();
             srpzKutu = new Surpriz_Kutu();
+
+            ls = new List<Panel>();
             pnlOyunBilgi = new Panel();
             basladiMi = false;
             zamanlayici.Interval = 1000;
+
+            Controls.Add(pnlOyunBilgi);
 
             sayi = 0;
 
@@ -66,6 +74,11 @@ namespace Oyun_Proje.Desktop
             }
 
             sayi++;
+
+            ls.Add(pnlOyunBilgi);
+            oyun.EkranaYazdir(pnlOyunBilgi, txtName.Text, level, karakter, sayi);
+            //Controls.Add(pnlOyunBilgi);
+            pnlOyunBilgi.Show();
         }
 
         private void AnaForm_Paint(object sender, PaintEventArgs e)
@@ -75,15 +88,15 @@ namespace Oyun_Proje.Desktop
                 if (basladiMi == true)
                 {
                     sbtTuzak.TuzakCiz(e.Graphics, karakter);
-                    //blok.BlokEkle(e.Graphics, level);
-                    if(srpzKutu != null)
+                    blok.BlokEkle(e.Graphics, level);
+                    if (srpzKutu != null)
                         if(srpzKutu.X != 0)
                             srpzKutu.KutuCiz(e.Graphics, srpzKutu);
                     karakter.KarakterCiz(e.Graphics, karakter);
 
                     ls.Add(pnlOyunBilgi);
-                    oyun.EkranaYazdir(pnlOyunBilgi, txtName.Text, level, karakter, zamanlayici);
-                    Controls.Add(pnlOyunBilgi);
+                    oyun.EkranaYazdir(pnlOyunBilgi, txtName.Text, level, karakter, sayi);
+                    //Controls.Add(pnlOyunBilgi);
                     pnlOyunBilgi.Show();
                 }
                 for (int i = 0; i < 10; i++)
@@ -99,8 +112,8 @@ namespace Oyun_Proje.Desktop
                             karakter.KarakterCiz(e.Graphics, karakter);
 
                             ls.Add(pnlOyunBilgi);
-                            oyun.EkranaYazdir(pnlOyunBilgi, txtName.Text, level, karakter, zamanlayici);
-                            Controls.Add(pnlOyunBilgi);
+                            oyun.EkranaYazdir(pnlOyunBilgi, txtName.Text, level, karakter, sayi);
+                            //Controls.Add(pnlOyunBilgi);
                             pnlOyunBilgi.Show();
                         }
                 }
@@ -116,8 +129,8 @@ namespace Oyun_Proje.Desktop
                 karakter.KarakterCiz(e.Graphics, karakter);
 
                 ls.Add(pnlOyunBilgi);
-                oyun.EkranaYazdir(pnlOyunBilgi, txtName.Text, level, karakter, zamanlayici);
-                Controls.Add(pnlOyunBilgi);
+                oyun.EkranaYazdir(pnlOyunBilgi, txtName.Text, level, karakter, sayi);
+                //Controls.Add(pnlOyunBilgi);
                 pnlOyunBilgi.Show();
             }
 
@@ -131,11 +144,18 @@ namespace Oyun_Proje.Desktop
                 karakter.KarakterCiz(e.Graphics, karakter);
 
                 ls.Add(pnlOyunBilgi);
-                oyun.EkranaYazdir(pnlOyunBilgi, txtName.Text, level, karakter, zamanlayici);
-                Controls.Add(pnlOyunBilgi);
+                oyun.EkranaYazdir(pnlOyunBilgi, txtName.Text, level, karakter, sayi);
+                //Controls.Add(pnlOyunBilgi);
                 pnlOyunBilgi.Show();
             }
 
+            else if(level == 4) 
+            {
+                oyun.HikayeyiGoster(e.Graphics);
+                //AnaForm yeniOyunFormu = new AnaForm();
+                //yeniOyunFormu.Show();
+                //this.Visible = false;
+            }
         }
 
         private void AnaForm_KeyDown(object sender, KeyEventArgs e)
@@ -259,7 +279,9 @@ namespace Oyun_Proje.Desktop
                     zamanlayici.Enabled = false;
                     MessageBox.Show("Hey, it's finally over. Isn't it beautiful?");
                     this.Controls.Clear();
-                    //oyun.PuanHesapla(zamanlayici.ToString);
+                    level = 4;
+                    oyun.PuanHesapla(karakter, sayi);
+                    // buraya hikaye eklenecek ve puan gösterilecek eğer ilk beşteyse de yazılsın tebrikler ilk 5'e girdiniz
                     Invalidate();
                 }
             }
@@ -282,10 +304,14 @@ namespace Oyun_Proje.Desktop
 
         private void btnInfo_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("It is played with the arrow keys. You can 'P'ause the game. \nThe surprise boxes will " +
-                "keep an EYE on you, don't miss them.80% good luck with you. \n Level 1: \n Watch where you step, you don't" +
-                " want to fall into the depths of your mind. \n Level 2: \n They're raining down on you, won't you run away? \n" +
-                " Level 3: \n They're coming, YOU CAN'T ESCAPE...");
+            HtP_Form formPlay = new HtP_Form();
+            formPlay.ShowDialog();
+        }
+
+        private void btnSkors_Click(object sender, EventArgs e)
+        {
+            Top_Skors formTop = new Top_Skors();
+            formTop.ShowDialog();
         }
     }
 }

@@ -131,6 +131,7 @@
             this.btnSkors.TabIndex = 9;
             this.btnSkors.Text = "Top Skors";
             this.btnSkors.UseVisualStyleBackColor = false;
+            this.btnSkors.Click += new System.EventHandler(this.btnSkors_Click);
             // 
             // AnaForm
             // 
