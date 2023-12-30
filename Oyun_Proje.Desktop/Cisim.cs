@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace Oyun_Proje.Desktop
 {
-    internal class Cisim
+    internal abstract class Cisim
     {
         private int x;
         private int y;
