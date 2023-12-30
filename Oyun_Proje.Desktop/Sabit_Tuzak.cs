@@ -1,9 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
+/*
+                Öğrenci Bilgileri
+-------------------------------------------------
+  Nesneye Dayalı Programlama Dersi Proje Ödevi
+
+ İsim: Esma KARA
+ Numara: B221200007
+ Mail: esma.kara4@ogr.sakarya.edu.tr
+
+ Bölüm: Bilişim Sistemleri Mühendisliği /2.sınıf
+-------------------------------------------------
+
+ */
+
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Oyun_Proje.Desktop
 {

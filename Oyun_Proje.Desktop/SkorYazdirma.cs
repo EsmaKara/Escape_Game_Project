@@ -1,4 +1,19 @@
-﻿using System;
+﻿
+/*
+                Öğrenci Bilgileri
+-------------------------------------------------
+  Nesneye Dayalı Programlama Dersi Proje Ödevi
+
+ İsim: Esma KARA
+ Numara: B221200007
+ Mail: esma.kara4@ogr.sakarya.edu.tr
+
+ Bölüm: Bilişim Sistemleri Mühendisliği /2.sınıf
+-------------------------------------------------
+
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -10,8 +25,8 @@ namespace Oyun_Proje.Desktop
     internal class SkorYazdirma
     {
         public static List<Label> labelListe = new List<Label>();
-        private static StreamWriter sw = new StreamWriter("D:\\Kodlar\\CSharp\\Oyun_Proje\\Oyun_Proje.Desktop\\Top5.txt", false, Encoding.ASCII);
-        private static StreamReader sr = new StreamReader("D:\\Kodlar\\CSharp\\Oyun_Proje\\Oyun_Proje.Desktop\\Top5.txt");
+        private static StreamWriter sw = new StreamWriter("Top_Skors.Top5.txt", false, Encoding.ASCII);
+        private static StreamReader sr = new StreamReader("Top_Skors.Top5.txt");
 
         private static Label[] lblSira = new Label[5];
 
