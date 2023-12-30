@@ -21,14 +21,11 @@ namespace Oyun_Proje.Desktop
         Font font;
         Size size;
         int puan;
-        int level;
         public List<Label> labelListe;
 
         Label finalHeader;
 
         Bloks blok;
-        Surpriz_Kutu srpzKutu;
-
 
         public Oyun()
         {
@@ -41,10 +38,6 @@ namespace Oyun_Proje.Desktop
             labelListe.Add(lblLevel);
             labelListe.Add(lblCan);
             labelListe.Add(lblSure);
-            lblOyuncuİsmi.Name = "lblOyuncuİsmi";
-            lblLevel.Name = "lblLevel";
-            lblCan.Name = "lblCan";
-            lblSure.Name = "lblSure";
             font = new Font(FontFamily.GenericSansSerif, 11, FontStyle.Regular);
             size = new Size(160, 80);
             lokasyon = new Point(40,28);
@@ -56,21 +49,17 @@ namespace Oyun_Proje.Desktop
                 label.Size = size;
                 lokasyon.X += 80 * 3;
             });
-            labelListe.Select((label) => label.Location).Sum(sayi => sayi.X).ToString();
+
+            //labelListe.Select((label) => label.Location).Sum(sayi => sayi.X).ToString();
             
             finalHeader = new Label();
 
-
-            level = 0;
-
             blok = new Bloks();
-            srpzKutu = new Surpriz_Kutu();
-
         }
 
 
 
-        public void OyunuYazdir(Graphics ciz, Tuzaklar nesne, Karakter karakter, int level)
+        public void OyunuYazdir(Graphics ciz, Tuzaklar nesne, Karakter karakter, Surpriz_Kutu srpzKutu, int level)
         {
             blok.BlokEkle(ciz, level);
             if (srpzKutu != null)
@@ -94,6 +83,7 @@ namespace Oyun_Proje.Desktop
 
         public void LevelGecme(Timer zamanlayici, Karakter karakter)
         {
+            zamanlayici.Stop();
             zamanlayici.Enabled = false;
             if (karakter.Can != 3)
                 karakter.Can += 1;
@@ -101,13 +91,22 @@ namespace Oyun_Proje.Desktop
             karakter.Y = 240;
         }
 
+        public void YenidenBaslat(ref Karakter karakter, ref int sayi, ref int level, ref bool basladiMi)
+        {
+            sayi = 0;
+            karakter = new Karakter();
+            level = 1;
+            basladiMi = true;
+        }
+
         public void OyunuBitir(Timer zamanlayici)
         {
+            zamanlayici.Stop();
             zamanlayici.Enabled = false;
             MessageBox.Show("Hey, it's finally over. Isn't it beautiful?");
         }
 
-        public void OyunuBaslat(Graphics ciz, Tuzaklar nesne, Karakter karakter, bool basladiMi)
+        public void OyunuBaslat(Graphics ciz, Tuzaklar nesne, Karakter karakter, Surpriz_Kutu srpzKutu, bool basladiMi, int level)
         {
             if (basladiMi == true)
             {
@@ -126,17 +125,18 @@ namespace Oyun_Proje.Desktop
         {
             lblOyuncuİsmi.Text = "Player Name: \n \n" + isim;
             lblLevel.Text = "Level: \n \n" + Convert.ToString(level);
-            lblCan.Text = "Kalan Can: \n \n" + Convert.ToString(karakter.Can);
-            lblSure.Text = "Süre: \n \n" + zamanlayici.ToString();
+            lblCan.Text = "Remaining Life: \n \n" + Convert.ToString(karakter.Can);
+            lblSure.Text = "Time: \n \n" + zamanlayici.ToString();
         }
 
         public void EkraniTemizle()
         {
         }
 
-        public void PuanHesapla(Karakter karakter, int sayi)
+        public int PuanHesapla(Karakter karakter, int sayi)
         {
             puan = karakter.Can * 500 + (1000 - sayi);
+            return puan;
         }
 
         public void HikayeyiGoster(Graphics ciz)
@@ -144,6 +144,7 @@ namespace Oyun_Proje.Desktop
             lokasyon.X = 320;
             lokasyon.Y = 100;
             finalHeader.Location = lokasyon;
+            finalHeader.Text = "Don't ";
 
             Image ımage = Image.FromFile("SonHikaye1.png");
             ciz.DrawImage(ımage, 80, 150, 200, 200);

@@ -67,7 +67,7 @@
             this.arrowKeys.Image = ((System.Drawing.Image)(resources.GetObject("arrowKeys.Image")));
             this.arrowKeys.Location = new System.Drawing.Point(57, 102);
             this.arrowKeys.Name = "arrowKeys";
-            this.arrowKeys.Size = new System.Drawing.Size(215, 184);
+            this.arrowKeys.Size = new System.Drawing.Size(235, 184);
             this.arrowKeys.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.arrowKeys.TabIndex = 1;
             this.arrowKeys.TabStop = false;

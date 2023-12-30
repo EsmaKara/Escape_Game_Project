@@ -67,6 +67,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sabit_Tuzak.cs" />
+    <Compile Include="SkorYazdirma.cs" />
     <Compile Include="Surpriz_Kutu.cs" />
     <Compile Include="Top_Skors.cs">
       <SubType>Form</SubType>
@@ -105,6 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Top5.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
