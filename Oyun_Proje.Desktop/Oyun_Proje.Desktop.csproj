@@ -62,6 +62,7 @@
     <Compile Include="HtP_Form.Designer.cs">
       <DependentUpon>HtP_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="IOyun.cs" />
     <Compile Include="Karakter.cs" />
     <Compile Include="Oyun.cs" />
     <Compile Include="Program.cs" />
@@ -106,9 +107,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Top5.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

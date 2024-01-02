@@ -23,7 +23,7 @@ namespace Oyun_Proje.Desktop
 {
     public partial class AnaForm : Form
     {
-        Top_Skors formTop;
+        
 
         Panel pnlOyunBilgi;
         Timer zamanlayici;
@@ -37,6 +37,7 @@ namespace Oyun_Proje.Desktop
 
         bool basladiMi;
         bool durduMu;
+        bool sonlandiMi;
         private int level;
         private int sayi;
         public AnaForm()
@@ -44,22 +45,16 @@ namespace Oyun_Proje.Desktop
             DoubleBuffered = true;
             InitializeComponent();
 
-            formTop = new Top_Skors();
-
             zamanlayici = new Timer();
             oyun = new Oyun();
-            
+            sonlandiMi = false;
             sbtTuzak = new Sabit_Tuzak();
             dsnTuzak = new Dusen_Tuzak();
             cnvrTuzak = new Canavar_Tuzak();
             karakter = new Karakter();
             srpzKutu = new Surpriz_Kutu();
-
             pnlOyunBilgi = new Panel();
-            pnlOyunBilgi.Size = new Size(1300, 120);
-            pnlOyunBilgi.BackColor = Color.Black;
-            pnlOyunBilgi.Location = new Point(0,0);
-            pnlOyunBilgi.Dock = DockStyle.Top;
+
             pnlOyunBilgi.Controls.AddRange(oyun.labelListe.ToArray());
 
             basladiMi = false;
@@ -91,7 +86,7 @@ namespace Oyun_Proje.Desktop
                 srpzKutu.KutuOlustur(srpzKutu);
             }
 
-            oyun.PanelEkranaYazdir(pnlOyunBilgi, txtName.Text, level, karakter, sayi);
+            oyun.PanelEkranaYazdir(txtName.Text, level, karakter, sayi);
 
             sayi++;
         }
@@ -102,7 +97,7 @@ namespace Oyun_Proje.Desktop
             {
                 if (basladiMi == true)
                 {
-                    oyun.OyunuBaslat(e.Graphics, sbtTuzak, karakter, srpzKutu, basladiMi, level);
+                    oyun.BaslatCiz(e.Graphics, sbtTuzak, karakter, srpzKutu, basladiMi, level);
 
                     this.Controls.Add(pnlOyunBilgi);
                 }
@@ -123,12 +118,21 @@ namespace Oyun_Proje.Desktop
                 this.Controls.Add(pnlOyunBilgi);
             }
 
-            else if(level == 4) 
+            else if(level == 4 && sonlandiMi==false) 
             {
+                SkorYazdirma.txtEkle(txtName.Text, oyun.PuanHesapla(karakter, sayi));
                 oyun.HikayeyiGoster(e.Graphics);
+                sonlandiMi = true;
+                
+
                 //AnaForm yeniOyunFormu = new AnaForm();
                 //yeniOyunFormu.Show();
                 //this.Visible = false;
+            }
+            else if(sonlandiMi)
+            {
+                this.Close();
+                this.Dispose();
             }
         }
 
@@ -256,7 +260,6 @@ namespace Oyun_Proje.Desktop
                             this.Controls.Clear();
                             level = 4;
 
-                            formTop.pnlYaz.Controls.AddRange(SkorYazdirma.Yazdir(txtName.Text, oyun.PuanHesapla(karakter, sayi)).ToArray());
                             // buraya hikaye eklenecek ve puan gösterilecek eğer ilk beşteyse de yazılsın tebrikler ilk 5'e girdiniz
                             Invalidate();
                         }
@@ -268,16 +271,19 @@ namespace Oyun_Proje.Desktop
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (txtName.Text.Length != 0)
+            if (txtName.Text.Length != 0&& !(txtName.Text.Contains("-")))
             {
                 this.Controls.Clear();
                 this.Text = "Can't Escape";
-                zamanlayici.Start();
-                zamanlayici.Enabled = true;
-                basladiMi = true;
-                level = 1;
+
+                oyun.OyunuBaslat(zamanlayici, ref basladiMi, ref level, pnlOyunBilgi);
+
                 Invalidate();
                 sbtTuzak.TuzakOlustur();
+            }
+            else
+            {
+                MessageBox.Show("U can't");
             }
         }
 
@@ -289,7 +295,13 @@ namespace Oyun_Proje.Desktop
 
         private void btnSkors_Click(object sender, EventArgs e)
         {
-            formTop.Show();
+            Top_Skors formTop = new Top_Skors();
+            formTop.ShowDialog();
+        }
+
+        private void AnaForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

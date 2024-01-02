@@ -17,12 +17,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Threading;
 using Label = System.Windows.Forms.Label;
 using Timer = System.Windows.Forms.Timer;
 
 namespace Oyun_Proje.Desktop
 {
-    internal class Oyun
+    internal class Oyun:IOyun
     {
         Label lblOyuncuİsmi;
         Label lblLevel;
@@ -33,8 +34,6 @@ namespace Oyun_Proje.Desktop
         Size size;
         int puan;
         public List<Label> labelListe;
-
-        Label finalHeader;
 
         Bloks blok;
 
@@ -62,13 +61,33 @@ namespace Oyun_Proje.Desktop
             });
 
             //labelListe.Select((label) => label.Location).Sum(sayi => sayi.X).ToString();
-            
-            finalHeader = new Label();
 
             blok = new Bloks();
         }
 
 
+        public void OyunuBaslat(Timer zamanlayici, ref bool basladiMi, ref int level, Panel pnlOyunBİlgi)
+        {
+            zamanlayici.Start();
+            zamanlayici.Enabled = true;
+            basladiMi = true;
+            level = 1;
+
+            this.PanelAyarla(pnlOyunBİlgi);
+        }
+
+        public void BaslatCiz(Graphics ciz, Tuzaklar nesne, Karakter karakter, Surpriz_Kutu srpzKutu, bool basladiMi, int level)
+        {
+            if (basladiMi == true)
+            {
+                nesne.TuzakCiz(ciz, karakter);
+                blok.BlokEkle(ciz, level);
+                if (srpzKutu != null)
+                    if (srpzKutu.X != 0)
+                        srpzKutu.KutuCiz(ciz, srpzKutu);
+                karakter.KarakterCiz(ciz, karakter);
+            }
+        }
 
         public void OyunuYazdir(Graphics ciz, Tuzaklar nesne, Karakter karakter, Surpriz_Kutu srpzKutu, int level)
         {
@@ -117,22 +136,27 @@ namespace Oyun_Proje.Desktop
             MessageBox.Show("Hey, it's finally over. Isn't it beautiful?");
         }
 
-        public void OyunuBaslat(Graphics ciz, Tuzaklar nesne, Karakter karakter, Surpriz_Kutu srpzKutu, bool basladiMi, int level)
+
+        /// <summary>
+        /// Oyun esnasında gösterilecek bilgiler için oluşturulan panel kontrolünün özelleriklerinin ayarlanması
+        /// </summary>
+        /// <param name="pnlOyunBilgi"> panelin kendisi parametre olarak verilir </param>
+        public void PanelAyarla(Panel pnlOyunBilgi)
         {
-            if (basladiMi == true)
-            {
-                nesne.TuzakCiz(ciz, karakter);
-                blok.BlokEkle(ciz, level);
-                if (srpzKutu != null)
-                    if (srpzKutu.X != 0)
-                        srpzKutu.KutuCiz(ciz, srpzKutu);
-                karakter.KarakterCiz(ciz, karakter);
-            }
+            pnlOyunBilgi.Size = new Size(1300, 120);
+            pnlOyunBilgi.BackColor = Color.Black;
+            pnlOyunBilgi.Location = new Point(0, 0);
+            pnlOyunBilgi.Dock = DockStyle.Top;
         }
 
-
-
-        public void PanelEkranaYazdir(Panel panel, string isim, int level, Karakter karakter, int zamanlayici)
+        /// <summary>
+        /// Panelde görünmesi gereken label kontrollerinin metinlerine atama gerçekleştirilir
+        /// </summary>
+        /// <param name="isim"> kullanıcının menü ekranındaki textbox aracına girdiği metin </param>
+        /// <param name="level"></param>
+        /// <param name="karakter"> kalan can için karakter parametresi </param>
+        /// <param name="zamanlayici"> sürenin yazdırılması için </param>
+        public void PanelEkranaYazdir(string isim, int level, Karakter karakter, int zamanlayici)
         {
             lblOyuncuİsmi.Text = "Player Name: \n \n" + isim;
             lblLevel.Text = "Level: \n \n" + Convert.ToString(level);
@@ -140,22 +164,25 @@ namespace Oyun_Proje.Desktop
             lblSure.Text = "Time: \n \n" + zamanlayici.ToString();
         }
 
-        public void EkraniTemizle()
-        {
-        }
-
+        /// <summary>
+        ///  Oyun sonunda puan hesaplamak için çağırılan fonksiyon
+        /// </summary>
+        /// <param name="karakter"> karakterin can sayısına ulaşmak için paremetre </param>
+        /// <param name="sayi"> geçen süre </param>
+        /// <returns></returns>
         public int PuanHesapla(Karakter karakter, int sayi)
         {
             puan = karakter.Can * 500 + (1000 - sayi);
             return puan;
         }
 
+        /// <summary>
+        ///  Oyunun hikayeyle bitmesini istediğim için oyun sonunda gösterilecek fotoğrafların ayarlanması
+        /// </summary>
+        /// <param name="ciz"> fotoğraf çizdirildiği için Graphics nesnesine ihtiyaç duyulur </param>
         public void HikayeyiGoster(Graphics ciz)
         {
-            lokasyon.X = 320;
-            lokasyon.Y = 100;
-            finalHeader.Location = lokasyon;
-            finalHeader.Text = "Don't ";
+
 
             Image ımage = Image.FromFile("SonHikaye1.png");
             ciz.DrawImage(ımage, 80, 150, 200, 200);
@@ -167,7 +194,6 @@ namespace Oyun_Proje.Desktop
             ciz.DrawImage(ımage, 680, 150, 200, 200);
 
         }
-
 
     }
 }

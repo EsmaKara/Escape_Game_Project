@@ -31,8 +31,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlYaz = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pnlYaz.SuspendLayout();
             this.SuspendLayout();
@@ -68,6 +68,15 @@
             this.pnlYaz.Size = new System.Drawing.Size(409, 332);
             this.pnlYaz.TabIndex = 1;
             // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label3.Location = new System.Drawing.Point(269, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(82, 29);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Skor";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -77,15 +86,6 @@
             this.label2.Size = new System.Drawing.Size(82, 29);
             this.label2.TabIndex = 0;
             this.label2.Text = "Name";
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label3.Location = new System.Drawing.Point(269, 22);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 29);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Skor";
             // 
             // Top_Skors
             // 
@@ -98,6 +98,7 @@
             this.MinimumSize = new System.Drawing.Size(600, 497);
             this.Name = "Top_Skors";
             this.Text = "Top Skors";
+            this.Load += new System.EventHandler(this.Top_Skors_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.pnlYaz.ResumeLayout(false);

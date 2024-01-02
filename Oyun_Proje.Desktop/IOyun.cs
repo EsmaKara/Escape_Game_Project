@@ -13,24 +13,20 @@
 
  */
 
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Oyun_Proje.Desktop
 {
-    public partial class Top_Skors : Form
+    interface IOyun
     {
-        public Top_Skors()
-        {
-            InitializeComponent();
-        }
+        void OyunuYazdir(Graphics ciz, Tuzaklar nesne, Karakter karakter, Surpriz_Kutu srpzKutu, int level);
 
-        private void Top_Skors_Load(object sender, System.EventArgs e)
-        {
-            SkorYazdirma.Goster().ForEach(dizi =>
-            {
-                this.pnlYaz.Controls.Add(dizi[0]);
-                this.pnlYaz.Controls.Add(dizi[1]);
-            });
-        }
+        void PanelEkranaYazdir(string isim, int level, Karakter karakter, int zamanlayici);
+
+        int PuanHesapla(Karakter karakter, int sayi);
+
+        void HikayeyiGoster(Graphics ciz);
+
     }
 }

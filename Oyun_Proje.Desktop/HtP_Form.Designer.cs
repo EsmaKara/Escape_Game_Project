@@ -44,6 +44,11 @@
             this.lblLevel3 = new System.Windows.Forms.Label();
             this.lblLevels3 = new System.Windows.Forms.Label();
             this.lblEnd = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.arrowKeys)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.supriseBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbxLevel1)).BeginInit();
@@ -212,12 +217,72 @@
             this.lblEnd.Text = "It will be just the END of your pain, NOT GAME.";
             this.lblEnd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Viner Hand ITC", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label1.Location = new System.Drawing.Point(75, 544);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(247, 64);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "You are playing my game now.";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Viner Hand ITC", 10.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label2.Location = new System.Drawing.Point(1084, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(186, 51);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Who is in control?";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Viner Hand ITC", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label3.Location = new System.Drawing.Point(1036, 544);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(234, 77);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Are yOu HeaRing voIceS aGain?";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Viner Hand ITC", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label4.Location = new System.Drawing.Point(335, 84);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(236, 67);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "YOu are ThE VILLAIN of ThiS StoRy.";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Viner Hand ITC", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label5.Location = new System.Drawing.Point(17, 420);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(183, 78);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "Your mind is playing tricks on YOU.\r\n";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // HtP_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(1282, 653);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblEnd);
             this.Controls.Add(this.pcbxLevel3);
             this.Controls.Add(this.lblLevel3);
@@ -268,5 +333,10 @@
         private System.Windows.Forms.Label lblLevel3;
         private System.Windows.Forms.Label lblLevels3;
         private System.Windows.Forms.Label lblEnd;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

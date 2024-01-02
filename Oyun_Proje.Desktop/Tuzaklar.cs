@@ -49,7 +49,7 @@ namespace Oyun_Proje.Desktop
             }
             if (karakter.Can == 0)
             {
-                MessageBox.Show("YOU DIED IN PAIN..");
+                MessageBox.Show("You believe this is a game. Eh, you may be right. But you think you can play it better than me? Think again..");
             }
         }
         public virtual void Hareket(Karakter karakter) { }

@@ -15,57 +15,73 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
 namespace Oyun_Proje.Desktop
 {
-    internal class SkorYazdirma
+    internal static class SkorYazdirma
     {
-        public static List<Label> labelListe = new List<Label>();
-        private static StreamWriter sw = new StreamWriter("Top_Skors.Top5.txt", false, Encoding.ASCII);
-        private static StreamReader sr = new StreamReader("Top_Skors.Top5.txt");
+        
+        private static List<Label[]> skorTablosu =new List<Label[]>();
+        private static int kacKisi = 5;  // ilk kac kisi gozuksun
 
-        private static Label[] lblSira = new Label[5];
 
-        private static string[] isimDizisi = new string[5];
-        private static int[] puanDizisi = { 0, 0, 0, 0, 0 };
-
-        public static List<Label> Yazdir(string isim, int puan)
+        public static void txtEkle(string isim, int puan)
         {
-            for (int i = 0; i < 5; i++)
-            {
-                lblSira[i] = new Label();   
-                lblSira[i].Location = new Point(20, 60);
-                lblSira[i].ForeColor = Color.Black;
-                lblSira[i].Size = new Size(70, 100);
-            }
-            
+            string suankiZaman = DateTime.Now.ToShortDateString();
 
-            for (int i = 0; i < 5; i++)
-            {
-                if (puan > puanDizisi[i])
-                {
-                    puanDizisi[i] = puan;
-                    isimDizisi[i] = isim;
-                    break;
-                }
-            }
-            for (int j = 0; j < isimDizisi.Length; j++)
-            {
-                if (isimDizisi[j] != null)
-                {
-                    sw.Write((j + 1) + ")           " + isimDizisi[j] + "\t \t \t" + Convert.ToString(puanDizisi[j]) + "\n");
-                    lblSira[j].Text = sr.ReadLine();
+            List<string[]> listeLineArray = new List<string[]>();  // puana göre sort etmek icin.
+            List<string> liste = File.ReadAllLines(@"..\Veriler\OyuncuPuanTablosu.txt").ToList();  //
+            liste.Add(isim + "-" + Convert.ToString(puan) + "-" + suankiZaman );  // yeni bir kullanıcı puanını tabloya ekleme
+            liste.ForEach(line => listeLineArray.Add(line.Split('-')));  //  - karakterine göre parcalama.
+                
+            listeLineArray.Sort((x,y)=> Convert.ToInt32(y[1]).CompareTo(Convert.ToInt32(x[1]))); // burada sıralaması için puanalrı veriyorum
+            liste.Clear();  // burada yeni sıralanmış txt içerisindeki metinleri eklemek için eski sırayı siliyorum.
+            listeLineArray.ForEach(dizi => liste.Add(string.Join("-", dizi))); // txt'ye yazdırmak için yeni listeyi ekleme.
+            File.WriteAllLines(@"..\Veriler\OyuncuPuanTablosu.txt", liste.ToArray());
 
-                    labelListe.Add(lblSira[j]);
-                }
-            }
-            sw.Close();
+        }
 
-            return labelListe;
+    public static List<Label[]> Goster()
+        {
+            // Her bir yazdirma cagrildiignda buyuk bir ihtimal yeni bir kayıt oalcagından
+            // eski top5 'i bir temizliyorumv e yeni top 5 'i bulduruyorum
+            skorTablosu.Clear(); 
+            Label labelName;
+            Label labelSkor;
+            int sizeY = 40;
+
+            for (int i = 0; i < kacKisi; i++)
+            {
+                labelName = new Label();
+                labelSkor = new Label();
+                labelName.Location = new Point(57, 52+i* sizeY + 10);
+                labelSkor.Location=new Point(212, 52 + i * sizeY + 10);
+                labelName.ForeColor = Color.Black;
+                labelSkor.ForeColor = Color.Black;
+                labelName.Size = new Size(70, sizeY);
+                labelSkor.Size = new Size(70, sizeY);
+                Label[] labeldizi = new Label[2];
+                labeldizi[0] = labelName;
+                labeldizi[1]=labelSkor;
+                skorTablosu.Add(labeldizi);
+            }
+            List<string[]> liste = new List<string[]>();
+            File.ReadAllLines(@"..\Veriler\OyuncuPuanTablosu.txt").Take(kacKisi).ToList().ForEach(satir => liste.Add(satir.Split('-')));
+            for (int i = 0; i < liste.Count; i++)
+            {
+                skorTablosu.ElementAt(i).ElementAt(0).Text = liste.ElementAt(i).ElementAt(0);
+                skorTablosu.ElementAt(i).ElementAt(1).Text = liste.ElementAt(i).ElementAt(1);
+            }
+
+
+            return skorTablosu;
         }
 
     }
