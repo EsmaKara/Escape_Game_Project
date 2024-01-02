@@ -186,6 +186,8 @@ namespace Oyun_Proje.Desktop
 
             Image ımage = Image.FromFile("SonHikaye1.png");
             ciz.DrawImage(ımage, 80, 150, 200, 200);
+            ımage = Image.FromFile("FinalHeader.jpeg");
+            ciz.DrawImage(ımage, 280, 50, 400, 100);
             ımage = Image.FromFile("SonHikaye2.jpeg");
             ciz.DrawImage(ımage, 280, 150, 200, 200);
             ımage = Image.FromFile("SonHikaye3.jpeg");

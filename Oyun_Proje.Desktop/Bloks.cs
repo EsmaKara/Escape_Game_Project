@@ -19,14 +19,21 @@ namespace Oyun_Proje.Desktop
 {
     internal class Bloks:Cisim
     {
+        //ilk koordinat ataması
         public Bloks() 
         {
             X = 80;
             Y = 160;
         }
 
+        /// <summary>
+        /// levellere göre bitiş çizgisinin farklı olduğu, karakterin üzerinde hareket edeceği blokları çizdiren fonksiyon
+        /// </summary>
+        /// <param name="blokCiz"> çizim için Graphics nesnesi </param>
+        /// <param name="level"> level bilgisi </param>
         public void BlokEkle(Graphics blokCiz, int level)
         {
+            // blokların resmi atanıp sürekli koordinatlar ayarlanarak çizdirilmesini sağlar
             resim = Image.FromFile("Bloks.jpeg");
             for (int i = 0; i < 3; i++)
             {
@@ -40,6 +47,7 @@ namespace Oyun_Proje.Desktop
             }
             Y -= Boyut*3;
 
+            // seviyenin farklı olmasına göre bitiş çizgisindeki fotoğrafın ayarlanması
             if (level == 1)
             {
                 resim = Image.FromFile("level1.jpeg");

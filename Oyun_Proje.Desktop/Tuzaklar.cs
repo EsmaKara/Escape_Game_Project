@@ -49,7 +49,8 @@ namespace Oyun_Proje.Desktop
             }
             if (karakter.Can == 0)
             {
-                MessageBox.Show("You believe this is a game. Eh, you may be right. But you think you can play it better than me? Think again..");
+                MessageBox.Show("You believe this is a game. Eh, you may be right. But you think you can play it better than me? Think again.." +
+                    "\n 'Space' for restart.");
             }
         }
         public virtual void Hareket(Karakter karakter) { }

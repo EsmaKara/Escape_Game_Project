@@ -37,6 +37,7 @@ namespace Oyun_Proje.Desktop
             karakterCiz.DrawImage(resim, karakter.X, karakter.Y, Boyut, Boyut);
         }
 
+        // yakalanan tuşun bilgisine göre hareket fonksiyonlarının çağırılması
         public void HareketEt(KeyEventArgs key)
         {
             switch (key.KeyCode)
@@ -47,6 +48,8 @@ namespace Oyun_Proje.Desktop
                 case Keys.Down: AsagiGit(); break;
             }
         }
+        // hareket durumlarında oyun oynanış alanından çıkma durumlarının kontrolüyle
+        // birlikte hareketlerin gerçekleştirilmesi
         public void SolaGit() 
         { 
             if (X > 0)

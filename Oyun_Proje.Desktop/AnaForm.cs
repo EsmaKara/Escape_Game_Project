@@ -37,7 +37,6 @@ namespace Oyun_Proje.Desktop
 
         bool basladiMi;
         bool durduMu;
-        bool sonlandiMi;
         private int level;
         private int sayi;
         public AnaForm()
@@ -47,7 +46,6 @@ namespace Oyun_Proje.Desktop
 
             zamanlayici = new Timer();
             oyun = new Oyun();
-            sonlandiMi = false;
             sbtTuzak = new Sabit_Tuzak();
             dsnTuzak = new Dusen_Tuzak();
             cnvrTuzak = new Canavar_Tuzak();
@@ -70,10 +68,13 @@ namespace Oyun_Proje.Desktop
 
         private void Zamanlayici_Tick(object sender, EventArgs e)
         {
+            // her saniyede hareket etmesi gereken tuzakların hareket fonksiyonunun çağırılması
             dsnTuzak.Hareket(karakter);
             cnvrTuzak.Hareket(karakter);
             Invalidate();
 
+            // levellere göre ve oluşturulması gereken interval'ın farklılıkları nedeniyle sürenin moduna göre
+            // tuzakların / sürpriz kutuların oluşturulması
             if(level == 2)
                 if(sayi % 4 == 0)
                     dsnTuzak.TuzakOlustur();
@@ -85,7 +86,8 @@ namespace Oyun_Proje.Desktop
                 srpzKutu = new Surpriz_Kutu();
                 srpzKutu.KutuOlustur(srpzKutu);
             }
-
+            
+            // oyuncu ismi, level, kalan can, süre yazdırılan panel
             oyun.PanelEkranaYazdir(txtName.Text, level, karakter, sayi);
 
             sayi++;
@@ -93,6 +95,7 @@ namespace Oyun_Proje.Desktop
 
         private void AnaForm_Paint(object sender, PaintEventArgs e)
         {
+            // levellere göre oyunun çizdirilmesi
             if (level == 1)
             {
                 if (basladiMi == true)
@@ -118,26 +121,21 @@ namespace Oyun_Proje.Desktop
                 this.Controls.Add(pnlOyunBilgi);
             }
 
-            else if(level == 4 && sonlandiMi==false) 
+            // oyun sonunda puan hesabı ve final hikayenin görünmesi
+            else if(level == 4) 
             {
                 SkorYazdirma.txtEkle(txtName.Text, oyun.PuanHesapla(karakter, sayi));
                 oyun.HikayeyiGoster(e.Graphics);
-                sonlandiMi = true;
-                
 
                 //AnaForm yeniOyunFormu = new AnaForm();
                 //yeniOyunFormu.Show();
-                //this.Visible = false;
-            }
-            else if(sonlandiMi)
-            {
-                this.Close();
-                this.Dispose();
+                //this.Close();
             }
         }
 
         private void AnaForm_KeyDown(object sender, KeyEventArgs e)
         {
+            // P tuşuyla durdurulduysa bunlar:
             if (e.KeyCode == Keys.P)
             {
                 if (durduMu == false)
@@ -154,13 +152,16 @@ namespace Oyun_Proje.Desktop
                     durduMu = false;
                 }
             }
+            // durdurulmadıysa bu kodlar çalışacak
             else
             {
                 if (durduMu == false)
                 {
+                    // hangi tuşa basıldığına göre karakterin hareketi
                     karakter.HareketEt(e);
                     Invalidate();
-
+                    
+                    //sürpriz kutu alındığında ne olacağı
                     if (srpzKutu != null)
                         if (karakter.X == srpzKutu.X && karakter.Y == srpzKutu.Y)
                         {
@@ -168,7 +169,14 @@ namespace Oyun_Proje.Desktop
                             srpzKutu = null;
                             Invalidate();
                         }
-
+                    
+                    /* 170-270 arası kodlar için genel açıklama:
+                     * can 0 değilse ve tuzağa denk gelindiyse can azaltılır, ama 0'sa oyun yeniden başlatılır
+                     * level atlandığında süre durur ve karakter başa geçer
+                     * karakter ilerlediğinde süre akmaya başlar 
+                     * bitişe ulaşıldığında level geçme fonksiyonu çağırılır
+                     * eğerki leveller de sonlandıysa oyun biter
+                    */
                     if (level == 1)
                     {
                         Invalidate();
@@ -260,7 +268,6 @@ namespace Oyun_Proje.Desktop
                             this.Controls.Clear();
                             level = 4;
 
-                            // buraya hikaye eklenecek ve puan gösterilecek eğer ilk beşteyse de yazılsın tebrikler ilk 5'e girdiniz
                             Invalidate();
                         }
                     }
@@ -271,6 +278,7 @@ namespace Oyun_Proje.Desktop
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            // eğer menüde bir isim girilmediyse butona tıklansa da oyun başlamaz
             if (txtName.Text.Length != 0&& !(txtName.Text.Contains("-")))
             {
                 this.Controls.Clear();
@@ -283,18 +291,20 @@ namespace Oyun_Proje.Desktop
             }
             else
             {
-                MessageBox.Show("U can't");
+                MessageBox.Show("U can't enter '-'");
             }
         }
 
         private void btnInfo_Click(object sender, EventArgs e)
         {
+            // How to Play formu oluşturulup gösteriliyor
             HtP_Form formPlay = new HtP_Form();
             formPlay.ShowDialog();
         }
 
         private void btnSkors_Click(object sender, EventArgs e)
         {
+            // Top Skors formu oluşturulup gösteriliyor
             Top_Skors formTop = new Top_Skors();
             formTop.ShowDialog();
         }

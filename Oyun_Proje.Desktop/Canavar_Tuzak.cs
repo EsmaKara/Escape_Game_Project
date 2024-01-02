@@ -30,6 +30,7 @@ namespace Oyun_Proje.Desktop
             tuzaklar = new Tuzaklar[Boyut];
             resimler = new Image[6];
 
+            // birden fazla fotoğraf kullanacağım için atamaları yapıyorum
             for (int i = 0; i < 6; i++)
             {
                 if (i == 0)

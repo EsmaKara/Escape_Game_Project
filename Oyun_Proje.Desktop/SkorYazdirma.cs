@@ -15,12 +15,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Oyun_Proje.Desktop
@@ -48,15 +45,16 @@ namespace Oyun_Proje.Desktop
 
         }
 
-    public static List<Label[]> Goster()
+        public static List<Label[]> Goster()
         {
-            // Her bir yazdirma cagrildiignda buyuk bir ihtimal yeni bir kayıt oalcagından
-            // eski top5 'i bir temizliyorumv e yeni top 5 'i bulduruyorum
+            // Her bir yazdırma çağırıldığında büyük bir ihtimal yeni bir kayıt olacağından
+            // eski top5 'i bir temizliyorum ve yeni top 5 'i bulduruyorum
             skorTablosu.Clear(); 
             Label labelName;
             Label labelSkor;
             int sizeY = 40;
 
+            // top_skors formuna eklenecek label'lar için ayarlamaların yapılması
             for (int i = 0; i < kacKisi; i++)
             {
                 labelName = new Label();
