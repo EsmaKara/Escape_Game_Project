@@ -23,8 +23,6 @@ namespace Oyun_Proje.Desktop
 {
     public partial class AnaForm : Form
     {
-        
-
         Panel pnlOyunBilgi;
         Timer zamanlayici;
         Oyun oyun;
@@ -37,6 +35,7 @@ namespace Oyun_Proje.Desktop
 
         bool basladiMi;
         bool durduMu;
+        bool sonlandiMi;
         private int level;
         private int sayi;
         public AnaForm()
@@ -57,6 +56,7 @@ namespace Oyun_Proje.Desktop
 
             basladiMi = false;
             durduMu = false;
+            sonlandiMi = false;
             zamanlayici.Interval = 1000;
 
             sayi = 0;
@@ -126,14 +126,20 @@ namespace Oyun_Proje.Desktop
             }
 
             // oyun sonunda puan hesabı ve final hikayenin görünmesi
-            else if(level == 4) 
+            else if(level == 4 && sonlandiMi == false) 
             {
                 SkorYazdirma.txtEkle(txtName.Text, oyun.PuanHesapla(karakter, sayi));
                 oyun.HikayeyiGoster(e.Graphics);
+                sonlandiMi = true;
 
                 //AnaForm yeniOyunFormu = new AnaForm();
                 //yeniOyunFormu.Show();
                 //this.Close();
+            }
+            else if (sonlandiMi)
+            {
+                this.Close();
+                this.Dispose();
             }
         }
 
