@@ -48,6 +48,10 @@ namespace Oyun_Proje.Desktop
             }
         }
 
+        /// <summary>
+        /// tuzaklar y'leri rastgele olacak biçimde oluşturulur
+        /// sürekli bir oluşturma yapısı için sayac yardımıyla kontrol edilir
+        /// </summary>
         public override void TuzakOlustur()
         {
             tuzaklar[sayac] = new Canavar_Tuzak();
@@ -76,7 +80,12 @@ namespace Oyun_Proje.Desktop
             tuzaklarinDizisi[sayi] = tuzaklar;
         }
 
-        public override void TuzakCiz(Graphics cnvrTuzak, Karakter karakter)
+        /// <summary>
+        /// canavarlarımın içerisinde bulunduğu dizilerimi tutan dizimin boş olmadığı takdirde 
+        /// sayi'ncı elemanının içerisindeki dizide dolaşarak rastgele resimlerle canavarların çizdirilmesi 
+        /// </summary>
+        /// <param name="ciz"> çizim için Graphics nesnesi </param>
+        public override void TuzakCiz(Graphics ciz)
         {
             if (tuzaklarinDizisi[sayi] != null)
             {
@@ -87,7 +96,7 @@ namespace Oyun_Proje.Desktop
                         if (tuzaklarinDizisi[sayi][i].X != 80)
                         {
                             rastgeleSayi = rnd.Next(0, 6);
-                            cnvrTuzak.DrawImage(resimler[rastgeleSayi], tuzaklarinDizisi[sayi][i].X, tuzaklarinDizisi[sayi][i].Y, Boyut, 78);
+                            ciz.DrawImage(resimler[rastgeleSayi], tuzaklarinDizisi[sayi][i].X, tuzaklarinDizisi[sayi][i].Y, Boyut, 78);
                         }
                         else if (tuzaklarinDizisi[sayi][i].X == 80)
                             tuzaklarinDizisi[sayi][i] = null;
@@ -96,17 +105,19 @@ namespace Oyun_Proje.Desktop
             }
         }
 
+        /// <summary>
+        /// tuzakların x ekseninde hareketini sağlar
+        /// </summary>
+        /// <param name="karakter"> CanAzalt fonksiyonuna parametre vermek için</param>
         public override void Hareket(Karakter karakter)
         {
             for (int i = 0; i < 10; i++)
             {
                 if (tuzaklar[i] != null)
                     tuzaklar[i].X -= Boyut;
-                if (karakter.Can > 0)
-                    if (tuzaklar[i] != null)
-                        if (tuzaklar[i].X == karakter.X && tuzaklar[i].Y == karakter.Y)
-                            CanAzalt(karakter);
             }
+            if (karakter.Can > 0)
+                CanAzalt(karakter);
         }
     }
 }

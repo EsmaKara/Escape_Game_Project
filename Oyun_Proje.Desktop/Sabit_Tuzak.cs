@@ -61,7 +61,7 @@ namespace Oyun_Proje.Desktop
             }
         }
 
-        public override void TuzakCiz(Graphics sbtTuzak, Karakter karakter)
+        public override void TuzakCiz(Graphics sbtTuzak)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -71,7 +71,12 @@ namespace Oyun_Proje.Desktop
             }
         }
 
-        public override void SabitTuzakGoster(Graphics sbtTuzak, Karakter karakter)
+        /// <summary>
+        /// karakter tuzağın üstüne gelmesi durumunda, üstünde durduğu tuzağın ve ondan öncekilerin görünmesini sağlar
+        /// </summary>
+        /// <param name="ciz"></param>
+        /// <param name="karakter"></param>
+        public override void SabitTuzakGoster(Graphics ciz, Karakter karakter)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -81,7 +86,7 @@ namespace Oyun_Proje.Desktop
                     {
                         rastgeleSayi = rnd.Next(0, 3);
                         if (tuzaklar[i] != null)
-                            sbtTuzak.DrawImage(resimler[rastgeleSayi], tuzaklar[i].X, tuzaklar[i].Y, Boyut, Boyut);
+                            ciz.DrawImage(resimler[rastgeleSayi], tuzaklar[i].X, tuzaklar[i].Y, Boyut, Boyut);
                     }
                 }
             }

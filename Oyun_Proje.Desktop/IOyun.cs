@@ -21,7 +21,6 @@ namespace Oyun_Proje.Desktop
     interface IOyun
     {
         // oyun sınıfı için bulundurmasını zorunlu kıldığım fonksiyonlar
-
         void OyunuYazdir(Graphics ciz, Tuzaklar nesne, Karakter karakter, Surpriz_Kutu srpzKutu, int level);
 
         void PanelEkranaYazdir(string isim, int level, Karakter karakter, int zamanlayici);

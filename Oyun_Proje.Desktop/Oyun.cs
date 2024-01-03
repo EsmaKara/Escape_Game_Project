@@ -17,7 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Threading;
 using Label = System.Windows.Forms.Label;
 using Timer = System.Windows.Forms.Timer;
 
@@ -39,6 +38,8 @@ namespace Oyun_Proje.Desktop
 
         public Oyun()
         {
+            // oyun esnasında gösterilmesi istenen bilgilerin tutulacağı labelların oluşturulması
+            // ve özelliklerinin atanması
             labelListe = new List<Label>();
             lblSure = new Label();
             lblCan = new Label();
@@ -48,6 +49,7 @@ namespace Oyun_Proje.Desktop
             labelListe.Add(lblLevel);
             labelListe.Add(lblCan);
             labelListe.Add(lblSure);
+
             font = new Font(FontFamily.GenericSansSerif, 11, FontStyle.Regular);
             size = new Size(160, 80);
             lokasyon = new Point(40,28);
@@ -80,7 +82,7 @@ namespace Oyun_Proje.Desktop
         {
             if (basladiMi == true)
             {
-                nesne.TuzakCiz(ciz, karakter);
+                nesne.TuzakCiz(ciz);
                 blok.BlokEkle(ciz, level);
                 if (srpzKutu != null)
                     if (srpzKutu.X != 0)
@@ -89,6 +91,15 @@ namespace Oyun_Proje.Desktop
             }
         }
 
+        /// <summary>
+        /// verilen parametrelere göre gereken fonksiyonların çağırılması
+        /// </summary>
+        /// <param name="ciz"> çizim için Graphics nesnesi </param>
+        /// <param name="nesne"> bütün tuzaklar, Tuzaklar sınıfından kalıtım aldığı için hepsini içerisinde 
+        /// tutabilecek bir referans oluşturuyorum, her biri için farklı referanslarla uğraşmıyorum böylece </param>
+        /// <param name="karakter"></param>
+        /// <param name="srpzKutu"></param>
+        /// <param name="level"> levellere göre çizdirilecek elemanların farklılık göstermesi üzerine alınan parametre</param>
         public void OyunuYazdir(Graphics ciz, Tuzaklar nesne, Karakter karakter, Surpriz_Kutu srpzKutu, int level)
         {
             blok.BlokEkle(ciz, level);
@@ -107,10 +118,16 @@ namespace Oyun_Proje.Desktop
                 }
             }
             else
-                nesne.TuzakCiz(ciz, karakter);
+                nesne.TuzakCiz(ciz);
             karakter.KarakterCiz(ciz, karakter);
         }
 
+        /// <summary>
+        /// levellerin sonunda bitişe ulaşıldığında süre durur, karakter başlangıç konumuna alınır ve 
+        /// can değişkeni 1 artırılır
+        /// </summary>
+        /// <param name="zamanlayici">sürenin durmasını sağlamak için alınan Timer parametre</param>
+        /// <param name="karakter"> karakterin özelliklerine atama yapılacağı için gerekli</param>
         public void LevelGecme(Timer zamanlayici, Karakter karakter)
         {
             zamanlayici.Stop();
@@ -121,6 +138,16 @@ namespace Oyun_Proje.Desktop
             karakter.Y = 240;
         }
 
+        /// <summary>
+        /// oyunda canın sıfırlanması durumunda oyunun en baştan başlamasını sağlar
+        /// 
+        /// bütün parametreler ref olarak alınmasının sebebi değişikliğin AnaForm içerisindeki 
+        /// değişkenlerde/referanslarda da gerçekleşmesini istemem -> referans ile değer atama
+        /// </summary>
+        /// <param name="karakter"> karakter referansıma direkt yeni bir nesne atıyorum </param>
+        /// <param name="sayi"> sürenin gösterimi için sıfırlama işlemi </param>
+        /// <param name="level"> level de 0'a eşitlenecek </param>
+        /// <param name="basladiMi"> başlama durumu true olacak </param>
         public void YenidenBaslat(ref Karakter karakter, ref int sayi, ref int level, ref bool basladiMi)
         {
             sayi = 0;
@@ -182,19 +209,16 @@ namespace Oyun_Proje.Desktop
         /// <param name="ciz"> fotoğraf çizdirildiği için Graphics nesnesine ihtiyaç duyulur </param>
         public void HikayeyiGoster(Graphics ciz)
         {
-
-
             Image ımage = Image.FromFile("SonHikaye1.png");
-            ciz.DrawImage(ımage, 80, 150, 200, 200);
+            ciz.DrawImage(ımage, 80, 200, 200, 200);
             ımage = Image.FromFile("FinalHeader.jpeg");
-            ciz.DrawImage(ımage, 280, 50, 400, 100);
+            ciz.DrawImage(ımage, 280, 50, 400, 150);
             ımage = Image.FromFile("SonHikaye2.jpeg");
-            ciz.DrawImage(ımage, 280, 150, 200, 200);
+            ciz.DrawImage(ımage, 280, 200, 200, 200);
             ımage = Image.FromFile("SonHikaye3.jpeg");
-            ciz.DrawImage(ımage, 480, 150, 200, 200);
+            ciz.DrawImage(ımage, 480, 200, 200, 200);
             ımage = Image.FromFile("SonHikaye4.jpeg");
-            ciz.DrawImage(ımage, 680, 150, 200, 200);
-
+            ciz.DrawImage(ımage, 680, 200, 200, 200);
         }
 
     }

@@ -24,6 +24,7 @@ namespace Oyun_Proje.Desktop
 
         public int Can { get => can; set => can = value; }
 
+        //çizdirilecek resmin ve koordinatlarının ilk değer atamaları
         public Karakter()
         {
             resim = Image.FromFile("Karakter.ico");

@@ -73,9 +73,11 @@ namespace Oyun_Proje.Desktop
             cnvrTuzak.Hareket(karakter);
             Invalidate();
 
+            oyun.PanelEkranaYazdir(txtName.Text, level, karakter, sayi);
+
             // levellere göre ve oluşturulması gereken interval'ın farklılıkları nedeniyle sürenin moduna göre
             // tuzakların / sürpriz kutuların oluşturulması
-            if(level == 2)
+            if (level == 2)
                 if(sayi % 4 == 0)
                     dsnTuzak.TuzakOlustur();
             if(level == 3)
@@ -101,7 +103,7 @@ namespace Oyun_Proje.Desktop
                 if (basladiMi == true)
                 {
                     oyun.BaslatCiz(e.Graphics, sbtTuzak, karakter, srpzKutu, basladiMi, level);
-
+                    oyun.PanelEkranaYazdir(txtName.Text, level, karakter, sayi);
                     this.Controls.Add(pnlOyunBilgi);
                 }
 
@@ -112,12 +114,14 @@ namespace Oyun_Proje.Desktop
             else if (level == 2)
             {
                 oyun.OyunuYazdir(e.Graphics, dsnTuzak, karakter, srpzKutu, level);
+                oyun.PanelEkranaYazdir(txtName.Text, level, karakter, sayi);
                 this.Controls.Add(pnlOyunBilgi);
             }
 
             else if (level == 3)
             {
                 oyun.OyunuYazdir(e.Graphics, cnvrTuzak, karakter, srpzKutu, level);
+                oyun.PanelEkranaYazdir(txtName.Text, level, karakter, sayi);
                 this.Controls.Add(pnlOyunBilgi);
             }
 

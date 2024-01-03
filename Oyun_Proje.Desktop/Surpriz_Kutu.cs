@@ -31,6 +31,10 @@ namespace Oyun_Proje.Desktop
             resim = Image.FromFile("srpzKutu1.ico");
         }
 
+        /// <summary>
+        /// üretilen sayıya göre %80 ihtimalle +1can %20 ihtimalle -1can sağlayan fonksiyon
+        /// </summary>
+        /// <param name="karakter"></param>
         public void RastgeleCan(Karakter karakter)
         {
             sayi = rnd.Next(1,11);
@@ -38,11 +42,15 @@ namespace Oyun_Proje.Desktop
             {
                 if (karakter.Can < 3)
                     karakter.Can += 1;
-                else if (sayi == 9 || sayi == 10)
-                    karakter.Can -= 1;
             }
+            else
+                karakter.Can -= 1;
         }
 
+        /// <summary>
+        /// koordinatları için rastgele sayılar üreterek atama
+        /// </summary>
+        /// <param name="kutu"></param>
         public void KutuOlustur(Surpriz_Kutu kutu)
         {
             for (; ; )

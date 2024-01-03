@@ -53,10 +53,11 @@ namespace Oyun_Proje.Desktop
                     "\n 'Space' for restart.");
             }
         }
-        public virtual void Hareket(Karakter karakter) { }
-        public virtual void TuzakCiz(Graphics cizim, Karakter karakter) { }
-        public virtual void TuzakOlustur() { }
 
+        // bu sınıftan kalıtım alan tuzaklar için gerektiğinde override edilerek oluşturulan fonksiyonlar 
+        public virtual void Hareket(Karakter karakter) { }
+        public virtual void TuzakCiz(Graphics cizim) { }
+        public virtual void TuzakOlustur() { }
         public virtual void SabitTuzakGoster(Graphics sbtTuzak, Karakter karakter) { }
     }        
 }
