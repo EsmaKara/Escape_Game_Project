@@ -14,7 +14,6 @@
  */
 
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
@@ -294,6 +293,9 @@ namespace Oyun_Proje.Desktop
                 this.Controls.Clear();
                 this.Text = "Can't Escape";
 
+                if (txtName.Text == "muhammed" || txtName.Text == "hüseyin" || txtName.Text == "Muhammed")
+                    MessageBox.Show("You win, dear teacher.\n Just kidding :)");
+
                 oyun.OyunuBaslat(zamanlayici, ref basladiMi, ref level, pnlOyunBilgi);
 
                 Invalidate();
@@ -301,7 +303,7 @@ namespace Oyun_Proje.Desktop
             }
             else
             {
-                MessageBox.Show("U can't enter '-'");
+                MessageBox.Show("U can't enter '-' or null.");
             }
         }
 

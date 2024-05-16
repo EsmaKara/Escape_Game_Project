@@ -232,9 +232,9 @@
             // 
             this.label2.Font = new System.Drawing.Font("Viner Hand ITC", 10.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(1084, 9);
+            this.label2.Location = new System.Drawing.Point(1041, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(186, 51);
+            this.label2.Size = new System.Drawing.Size(229, 51);
             this.label2.TabIndex = 17;
             this.label2.Text = "Who is in control?";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

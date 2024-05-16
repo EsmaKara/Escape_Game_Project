@@ -20,10 +20,10 @@ namespace Oyun_Proje.Desktop
 {
     internal class Karakter : Cisim
     {
-        private int can;
+        private int can; 
 
         public int Can { get => can; set => can = value; }
-
+         
         //çizdirilecek resmin ve koordinatlarının ilk değer atamaları
         public Karakter()
         {
